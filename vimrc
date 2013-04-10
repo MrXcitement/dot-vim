@@ -29,9 +29,11 @@ set smartcase
 
 "" Only do this part when compiled with support for autocommands.
 if has("autocmd")
+
 	" 2011-05-19 MRB
 	" Added pathoen -- For management of individually installed plugins in
 	" ~/.vim/bundle
+	runtime bundle/vim-pathogen/autoload/pathogen.vim
 	call pathogen#infect()
 
 	" Enable file type detection.
