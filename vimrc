@@ -36,6 +36,12 @@ if has("autocmd")
 	runtime bundle/vim-pathogen/autoload/pathogen.vim
 	call pathogen#infect()
 
+	" miniBufExplorer settings
+	let g:miniBufExplMapWindowNavVim = 1
+	let g:miniBufExplMapWindowNavArrows = 1
+	let g:miniBufExplMapCTabSwitchBufs = 1
+	let g:miniBufExplModSelTarget = 1
+
 	" Enable file type detection.
 	" Use the default filetype settings, so that mail gets 'tw' set to 72,
 	" 'cindent' is on in C files, etc.
