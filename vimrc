@@ -63,6 +63,10 @@ if has("autocmd")
 		\   exe "normal g`\"" |
 		\ endif
 	augroup END
+
+	" Python code completion
+	autocmd FileType python set omnifunc=pythoncomplete#Complete
+
 else
 	set autoindent		" always set autoindenting on
 endif " has("autocmd")
