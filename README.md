@@ -1,17 +1,16 @@
-###A simple vimrc setup using pathogen and git.
+##A simple vimrc setup 
+##using pathogen to manage plugins.
 
 To install the configuration files, do the following:
 
-Clone the repo:
+##Clone
+Clone the vimrc repo to a local directory.
 
-    git clone git://github.com/mrxcitement/vimrc.git ~/src/vimrc
+    git clone git://github.com/mrxcitement/vimrc.git ~/git/vimrc
 
-Create symlinks:
+##Install 
+Switch to the repo and run the install.sh script.
 
-    ln -s ~/src/vimrc/vim ~/.vim
-    ln -s ~/src/vimrc/vimrc ~/.vimrc
+	cd ~/git/vimrc
+	./install.sh
 
-Switch to the `~/.vim` directory, and fetch submodules:
-
-    cd ~/.vim
-    git submodule update --init
