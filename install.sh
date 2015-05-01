@@ -20,5 +20,5 @@ for FILE in ${FSPEC}; do
 	    mv ~/.${FILE} ~/.${FILE}.backup
 	fi
     fi
-    ln -sv ${DIR}/${FILE} ~/.${FILE}
+    ln -fsv ${DIR}/${FILE} ~/.${FILE}
 done
