@@ -66,9 +66,15 @@ if has("autocmd")
 
 	" Python code completion
 	autocmd FileType python set omnifunc=pythoncomplete#Complete
+	
+	" SuperTab
+	let g:SuperTabDefaultCompletionType = "context"
+	set completeopt=menuone,longest,preview
+
 
 else
 	set autoindent		" always set autoindenting on
+
 endif " has("autocmd")
 
 "" Set the font to use
@@ -88,6 +94,9 @@ if has("gui_running")
 
 	"" Set the colorscheme
 	colorscheme solarized
+	highlight Pmenu guibg=grey gui=bold
+else
+	highlight Pmenu ctermbg=238 gui=bold
 
 endif
 
@@ -98,7 +107,7 @@ set ts=4 sts=4 sw=4 noexpandtab
 " Set viewing matched braces, brackets and parens
 set showmatch
 " Change <leader> from \ to ,
-let mapleader=","
+"let mapleader=","
 
 """
 " http://vimcasts.org/episodes/show-invisibles/
@@ -146,6 +155,7 @@ function! OpenURI()
 	endif
 endfunction
 map <Leader>w :call OpenURI()<CR>
+
 
 " MRB - End Personal Settings
 """
