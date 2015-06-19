@@ -1,4 +1,4 @@
-#A simple vimrc setup
+#My vimrc setup
 
 This is my personal vim configuration. I am using pathogen to manage plugins that are installed as submodules.
 
