@@ -6,41 +6,33 @@
 
 set nocompatible
 syntax enable
-set encoding=utf-8
-set showcmd
-filetype plugin indent on
-
-"" allow backspacing over everything in insert mode
-set backspace=indent,eol,start
-
-set history=50		" keep 50 lines of command line history
-set ruler			" show the cursor position all the time
-set showcmd			" display incomplete commands
-
-"" Whitespace
-set nowrap
-
-
-"" Searching
-set hlsearch
-set incsearch
-set ignorecase
-set smartcase
 
 "" Only do this part when compiled with support for autocommands.
 if has("autocmd")
 
-	" 2011-05-19 MRB
-	" Added pathoen -- For management of individually installed plugins in
-	" ~/.vim/bundle
-	runtime bundle/vim-pathogen/autoload/pathogen.vim
-	call pathogen#infect()
-
+	" load Vundle
+	" Setting up Vundle - the vim plugin bundler
+	let iCanHazVundle=1
+	let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
+	if !filereadable(vundle_readme)
+		echo "Installing Vundle.."
+		echo ""
+		silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
+		let iCanHazVundle=0
+    endif
+	set rtp+=~/.vim/bundle/vundle/
+	call vundle#rc()
+	Bundle 'gmarik/vundle'
+	" add bundles here...
+	if iCanHazVundle == 0
+		:BundleInstall
+	endif
+	
 	" miniBufExplorer settings
-	let g:miniBufExplMapWindowNavVim = 1
-	let g:miniBufExplMapWindowNavArrows = 1
-	let g:miniBufExplMapCTabSwitchBufs = 1
-	let g:miniBufExplModSelTarget = 1
+	"let g:miniBufExplMapWindowNavVim = 1
+	"let g:miniBufExplMapWindowNavArrows = 1
+	"let g:miniBufExplMapCTabSwitchBufs = 1
+	"let g:miniBufExplModSelTarget = 1
 
 	" Enable file type detection.
 	" Use the default filetype settings, so that mail gets 'tw' set to 72,
@@ -68,8 +60,8 @@ if has("autocmd")
 	autocmd FileType python set omnifunc=pythoncomplete#Complete
 	
 	" SuperTab
-	let g:SuperTabDefaultCompletionType = "context"
-	set completeopt=menuone,longest,preview
+	"let g:SuperTabDefaultCompletionType = "context"
+	"set completeopt=menuone,longest,preview
 
 
 else
@@ -99,6 +91,26 @@ else
 	highlight Pmenu ctermbg=238 gui=bold
 
 endif
+
+filetype plugin indent on
+
+set encoding=utf-8
+
+"" allow backspacing over everything in insert mode
+set backspace=indent,eol,start
+
+set history=50		" keep 50 lines of command line history
+set ruler			" show the cursor position all the time
+set showcmd			" display incomplete commands
+
+"" Whitespace
+set nowrap
+
+"" Searching
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
 
 """
 " http://vimcasts.org/episodes/tabs-and-spaces/ 
