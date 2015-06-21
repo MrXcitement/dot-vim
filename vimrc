@@ -25,7 +25,7 @@ if has("autocmd")
 	Plugin 'gmarik/vundle'
 	
 	" add your plugins here...
-	Plugin 'altercation/vim-colrs-solarized'
+	Plugin 'Solarized'
 	Plugin 'minibufexpl.vim'
 	Plugin 'SuperTab'
 
