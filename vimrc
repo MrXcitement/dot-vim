@@ -3,7 +3,7 @@
 "
 " Mike Barker <mike@thebarkers.com>
 "
-set nocompatible
+set nocompatible	" vi compatability disabled
 
 "" Only do this part when compiled with support for autocommands.
 if has("autocmd")
@@ -41,11 +41,10 @@ if has("autocmd")
 	let g:miniBufExplMapCTabSwitchBufs = 1
 	let g:miniBufExplModSelTarget = 1
 
-	" Enable file type detection.
-	" Use the default filetype settings, so that mail gets 'tw' set to 72,
-	" 'cindent' is on in C files, etc.
-	" Also load indent files, to automatically do language-dependent indenting.
-	filetype plugin indent on
+	" SuperTab settings
+	let g:SuperTabDefaultCompletionType = "context"
+	set completeopt=menuone,longest,preview
+
 
 	" Put these in an autocmd group, so that we can delete them easily.
 	augroup vimrcEx
@@ -61,14 +60,12 @@ if has("autocmd")
 		\ if line("'\"") > 0 && line("'\"") <= line("$") |
 		\   exe "normal g`\"" |
 		\ endif
-	augroup END
-
+	
 	" Python code completion
 	autocmd FileType python set omnifunc=pythoncomplete#Complete
 	
-	" SuperTab settings
-	let g:SuperTabDefaultCompletionType = "context"
-	set completeopt=menuone,longest,preview
+	augroup END		" end of vimrcEx augroup
+
 
 else
 	set autoindent		" always set autoindenting on
@@ -93,6 +90,7 @@ if has("gui_running")
 	"" Set the colorscheme
 	colorscheme solarized
 	highlight Pmenu guibg=grey gui=bold
+
 else
 	highlight Pmenu ctermbg=238 gui=bold
 
@@ -100,6 +98,11 @@ endif
 
 "" Base settings
 syntax enable
+
+" Enable file type detection.
+" Use the default filetype settings, so that mail gets 'tw' set to 72,
+" 'cindent' is on in C files, etc.
+" Also load indent files, to automatically do language-dependent indenting.
 filetype plugin indent on
 
 set encoding=utf-8
