@@ -18,7 +18,7 @@ if has("autocmd")
 		silent !mkdir -p ~/vim/bundle
 		silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
 		let iCanHazVundle=0
-    endif
+	endif
 	set rtp+=~/.vim/bundle/vundle/
 	call vundle#rc()
 	Plugin 'gmarik/vundle'
@@ -44,7 +44,6 @@ if has("autocmd")
 	" SuperTab settings
 	let g:SuperTabDefaultCompletionType = "context"
 	set completeopt=menuone,longest,preview
-
 
 	" Put these in an autocmd group, so that we can delete them easily.
 	augroup vimrcEx
@@ -129,8 +128,9 @@ set smartcase
 set ts=4 sts=4 sw=4 noexpandtab
 " Set viewing matched braces, brackets and parens
 set showmatch
+
 " Change <leader> from \ to ,
-"let mapleader=","
+let mapleader=","
 
 """
 " http://vimcasts.org/episodes/show-invisibles/
