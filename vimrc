@@ -3,7 +3,6 @@
 "
 " Mike Barker <mike@thebarkers.com>
 "
-
 set nocompatible
 syntax enable
 
@@ -15,9 +14,9 @@ if has("autocmd")
 	let iCanHazVundle=1
 	let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
 	if !filereadable(vundle_readme)
-		echo "Installing Vundle.."
+		echo "Installing Vundle..."
 		echo ""
-		silent !mkdir -p ~/.vim/bundle
+		silent !mkdir -p ~/vim/bundle
 		silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
 		let iCanHazVundle=0
     endif
@@ -26,11 +25,14 @@ if has("autocmd")
 	Plugin 'gmarik/vundle'
 	
 	" add your plugins here...
-	Plugin 'altercation/vim-colors-solarized'
-	Plugin 'miniBufExpl'
+	Plugin 'altercation/vim-colrs-solarized'
+	Plugin 'minibufexpl.vim'
+	Plugin 'SuperTab'
 
 	" end plugns here	
 	if iCanHazVundle == 0
+		echo "Installing Plugins..."
+		echo ""
 		:PluginInstall
 	endif
 	
@@ -66,9 +68,8 @@ if has("autocmd")
 	autocmd FileType python set omnifunc=pythoncomplete#Complete
 	
 	" SuperTab settings
-	"let g:SuperTabDefaultCompletionType = "context"
-	"set completeopt=menuone,longest,preview
-
+	let g:SuperTabDefaultCompletionType = "context"
+	set completeopt=menuone,longest,preview
 
 else
 	set autoindent		" always set autoindenting on

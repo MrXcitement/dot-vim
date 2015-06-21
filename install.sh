@@ -23,8 +23,3 @@ for FILE in ${FSPEC}; do
     ln -fsv ${DIR}/${FILE} ~/.${FILE}
 done
 
-# fetch submodules
-pushd .
-cd ~/.vim
-git submodule update --init
-popd
