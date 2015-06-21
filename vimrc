@@ -4,7 +4,6 @@
 " Mike Barker <mike@thebarkers.com>
 "
 set nocompatible
-syntax enable
 
 "" Only do this part when compiled with support for autocommands.
 if has("autocmd")
@@ -99,6 +98,8 @@ else
 
 endif
 
+"" Base settings
+syntax enable
 filetype plugin indent on
 
 set encoding=utf-8
