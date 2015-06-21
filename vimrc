@@ -17,22 +17,28 @@ if has("autocmd")
 	if !filereadable(vundle_readme)
 		echo "Installing Vundle.."
 		echo ""
+		silent !mkdir -p ~/.vim/bundle
 		silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
 		let iCanHazVundle=0
     endif
 	set rtp+=~/.vim/bundle/vundle/
 	call vundle#rc()
-	Bundle 'gmarik/vundle'
-	" add bundles here...
+	Plugin 'gmarik/vundle'
+	
+	" add your plugins here...
+	Plugin 'altercation/vim-colors-solarized'
+	Plugin 'miniBufExpl'
+
+	" end plugns here	
 	if iCanHazVundle == 0
-		:BundleInstall
+		:PluginInstall
 	endif
 	
 	" miniBufExplorer settings
-	"let g:miniBufExplMapWindowNavVim = 1
-	"let g:miniBufExplMapWindowNavArrows = 1
-	"let g:miniBufExplMapCTabSwitchBufs = 1
-	"let g:miniBufExplModSelTarget = 1
+	let g:miniBufExplMapWindowNavVim = 1
+	let g:miniBufExplMapWindowNavArrows = 1
+	let g:miniBufExplMapCTabSwitchBufs = 1
+	let g:miniBufExplModSelTarget = 1
 
 	" Enable file type detection.
 	" Use the default filetype settings, so that mail gets 'tw' set to 72,
@@ -59,7 +65,7 @@ if has("autocmd")
 	" Python code completion
 	autocmd FileType python set omnifunc=pythoncomplete#Complete
 	
-	" SuperTab
+	" SuperTab settings
 	"let g:SuperTabDefaultCompletionType = "context"
 	"set completeopt=menuone,longest,preview
 
