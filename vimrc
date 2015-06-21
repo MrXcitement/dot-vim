@@ -42,8 +42,8 @@ if has("autocmd")
 	let g:miniBufExplModSelTarget = 1
 
 	" SuperTab settings
-	let g:SuperTabDefaultCompletionType = "context"
-	set completeopt=menuone,longest,preview
+	"let g:SuperTabDefaultCompletionType = "context"
+	"set completeopt=menuone,longest,preview
 
 	" Put these in an autocmd group, so that we can delete them easily.
 	augroup vimrcEx
@@ -61,7 +61,7 @@ if has("autocmd")
 		\ endif
 	
 	" Python code completion
-	autocmd FileType python set omnifunc=pythoncomplete#Complete
+	"autocmd FileType python set omnifunc=pythoncomplete#Complete
 	
 	augroup END		" end of vimrcEx augroup
 
@@ -70,6 +70,7 @@ else
 	set autoindent		" always set autoindenting on
 
 endif " has("autocmd")
+
 
 "" Set the font to use
 if has("gui_running")
@@ -104,6 +105,10 @@ syntax enable
 " Also load indent files, to automatically do language-dependent indenting.
 filetype plugin indent on
 
+" omni complete all
+"set omnifunc=syntaxcomplete#Complete
+
+"" handle unicode files
 set encoding=utf-8
 
 "" allow backspacing over everything in insert mode
