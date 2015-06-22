@@ -185,6 +185,7 @@ map <Leader>w :call OpenURI()<CR>
 ""
 " open current file
 function! OpenFile(file)
+	let file=a:file
 	if has("win32")
 		exec ":!start " . file
 	elseif has("unix")
@@ -192,11 +193,11 @@ function! OpenFile(file)
 		if os == 'Darwin' || os == 'Mac'
 			exec ":silent !open " . file 
 		else
-			exec ":silent !open " . file
+			exec ":silent !xdg-open " . file
 		endif
 	endif
 endfunction
-nmap <leader>o :call OpenFile(%)
+nmap <leader>o :call OpenFile(expand('%:p')<CR>
 
 
 " MRB - End Personal Settings
