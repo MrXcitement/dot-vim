@@ -60,8 +60,6 @@ if has("autocmd")
 		\   exe "normal g`\"" |
 		\ endif
 	
-	" Python code completion
-	"autocmd FileType python set omnifunc=pythoncomplete#Complete
 	
 	augroup END		" end of vimrcEx augroup
 
