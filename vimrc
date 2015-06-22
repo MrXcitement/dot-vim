@@ -182,6 +182,22 @@ function! OpenURI()
 endfunction
 map <Leader>w :call OpenURI()<CR>
 
+""
+" open current file
+function! OpenFile(file)
+	if has("win32")
+		exec ":!start " . file
+	elseif has("unix")
+		let os=substitute(system('uname'), '\n', '', '')
+		if os == 'Darwin' || os == 'Mac'
+			exec ":silent !open " . file 
+		else
+			exec ":silent !open " . file
+		endif
+	endif
+endfunction
+nmap <leader>o :call OpenFile(%)
+
 
 " MRB - End Personal Settings
 """
