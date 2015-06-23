@@ -169,33 +169,35 @@ nmap <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vim
 function! OpenURI()
 	let s:uri = matchstr(getline("."), '[a-z]*:\/\/[^ >,;:"]*')
 	if s:uri != ""
-		echo s:uri
 		call OpenFile(s:uri)
 	else
-		echo "No URI found in current line."
+		echohl WarningMsg
+		echom "No URI found in current line."
+		echohl None
 	endif
 endfunction
-map <Leader>w :call OpenURI()<CR>
 
 ""
 " open file or uri
 function! OpenFile(f)
 	let s:file=a:f
+	let s:cmd=""
 	if has("win32")
-		exec ":!start \"" . s:file . "\""
-	
+		let s:cmd = ":silent !start \"" . s:file . "\""
 	elseif has("unix")
 		let os=substitute(system('uname'), '\n', '', '')
 		if os == 'Darwin' || os == 'Mac'
-			exec ":silent !open \"" . s:file . "\"" 
-	
+			let s:cmd = ":silent !open \"" . s:file . "\"" 
 		else
-			exec ":silent !xdg-open \"" . s:file . "\""
-	
+			let s:cmd = ":silent !xdg-open \"" . s:file . "\""
 		endif
 	endif
+	exec s:cmd
+	redraw!
+	echom s:cmd
 endfunction
-nmap <leader>o :update<CR>:call OpenFile(expand('%:p'))<CR>
+nmap <Leader>w :call OpenURI()<CR>
+nmap <leader>W :update<CR>:call OpenFile(expand('%:p'))<CR>
 
 
 " MRB - End Personal Settings
