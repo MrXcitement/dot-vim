@@ -162,20 +162,15 @@ nmap <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vim
 " 2013-04-05 MRB - Modified to handle Apple's native vim as well as MacVim
 " by moving the system check under has('unix') and then testing the uname
 " value.
+" 2015-06-22 MRB - Refactor out opening the URI into OpenFile() so that
+" it can be used to open the current file in the default app for the
+" file type being edited. i.e. open the current html file in the default
+" browser.
 function! OpenURI()
-	let s:uri = matchstr(getline("."), '[a-z]*:\/\/[^ >,;:]*')
+	let s:uri = matchstr(getline("."), '[a-z]*:\/\/[^ >,;:"]*')
 	if s:uri != ""
 		echo s:uri
-		if has("win32")
-			exec ":silent !start \"" . s:uri . "\""
-		elseif has("unix")
-			let os=substitute(system('uname'), '\n', '', '')
-			if os == 'Darwin' || os == 'Mac'
-				exec ":silent !open \"" . s:uri . "\""
-			else
-				exec ":silent !xdg-open \"" . s:uri . "\""
-			endif
-		endif
+		call OpenFile(s:uri)
 	else
 		echo "No URI found in current line."
 	endif
@@ -183,21 +178,24 @@ endfunction
 map <Leader>w :call OpenURI()<CR>
 
 ""
-" open current file
-function! OpenFile(file)
-	let file=a:file
+" open file or uri
+function! OpenFile(f)
+	let s:file=a:f
 	if has("win32")
-		exec ":!start " . file
+		exec ":!start \"" . s:file . "\""
+	
 	elseif has("unix")
 		let os=substitute(system('uname'), '\n', '', '')
 		if os == 'Darwin' || os == 'Mac'
-			exec ":silent !open " . file 
+			exec ":silent !open \"" . s:file . "\"" 
+	
 		else
-			exec ":silent !xdg-open " . file
+			exec ":silent !xdg-open \"" . s:file . "\""
+	
 		endif
 	endif
 endfunction
-nmap <leader>o :call OpenFile(expand('%:p')<CR>
+nmap <leader>o :update<CR>:call OpenFile(expand('%:p'))<CR>
 
 
 " MRB - End Personal Settings
