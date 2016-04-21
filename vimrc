@@ -26,12 +26,12 @@ endif
 
 exe "set rtp+=" . vundle_path
 call vundle#begin(vundle_path)
-"Plugin 'VundleVim/Vundle.vim'
+Plugin 'VundleVim/Vundle.vim'
 
 " add your plugins here...
-"Plugin 'Solarized'
-"Plugin 'minibufexpl.vim'
-"Plugin 'SuperTab'
+Plugin 'Solarized'
+Plugin 'minibufexpl.vim'
+Plugin 'SuperTab'
 
 " end plugns here	
 call vundle#end()
@@ -43,14 +43,14 @@ if iCanHazVundle == 0
 endif
 
 " miniBufExplorer settings
-"let g:miniBufExplMapWindowNavVim = 1
-"let g:miniBufExplMapWindowNavArrows = 1
-"let g:miniBufExplMapCTabSwitchBufs = 1
-"let g:miniBufExplModSelTarget = 1
+let g:miniBufExplMapWindowNavVim = 1
+let g:miniBufExplMapWindowNavArrows = 1
+let g:miniBufExplMapCTabSwitchBufs = 1
+let g:miniBufExplModSelTarget = 1
 
 " SuperTab settings
-"let g:SuperTabDefaultCompletionType = "context"
-"set completeopt=menuone,longest,preview
+let g:SuperTabDefaultCompletionType = "context"
+set completeopt=menuone,longest,preview
 
 "" Only do this part when compiled with support for autocommands.
 if has("autocmd")
