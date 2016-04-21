@@ -3,54 +3,50 @@
 "
 " Mike Barker <mike@thebarkers.com>
 "
-set nocompatible	" vi compatability disabled
+set nocompatible	" be iMproved, required by vundle
+filetype off " required by vundle
+
+" set os specific vars here
+if has("win32") || has("win16")
+	let vim_path = expand("~/vimfiles")
+	let vimrc_path = expand("~/_vimrc")
+else
+	let vim_path = expand("~/.vim")
+	let vimrc_path = expand("~/.vimrc")
+endif
 
 " load Vundle
 " Setting up Vundle - the vim plugin bundler
 let iCanHazVundle=1
-if has("win32") || has("win16")
-	let vim_path = expand("~/vimfiles")
-else
-	let vim_path = expand("~/.vim")
-endif
 let bundle_path = vim_path . "/bundle"
 let vundle_path = bundle_path . "/Vundle.vim"
 let vundle_readme = vundle_path . "/README.md"
-if !filereadable(vundle_readme)
-	echo "Installing Vundle..."
-	echo ""
-	silent exe "%r! mkdir " . bundle_path
-	silent exe "%r! git clone https://github.com/VundleVim/Vundle.vim " . vundle_path
-	let iCanHazVundle=0
+
+" only do vundle stuff it is installed
+if filereadable(vundle_readme)
+
+	exe "set rtp+=" . vundle_path
+	call vundle#begin(vundle_path)
+	Plugin 'VundleVim/Vundle.vim'
+
+	" add your plugins here...
+	Plugin 'Solarized'
+	Plugin 'minibufexpl.vim'
+	Plugin 'SuperTab'
+
+	" end plugns here	
+	call vundle#end()
+
+	" miniBufExplorer settings
+	let g:miniBufExplMapWindowNavVim = 1
+	let g:miniBufExplMapWindowNavArrows = 1
+	let g:miniBufExplMapCTabSwitchBufs = 1
+	let g:miniBufExplModSelTarget = 1
+
+	" SuperTab settings
+	let g:SuperTabDefaultCompletionType = "context"
+	set completeopt=menuone,longest,preview
 endif
-
-exe "set rtp+=" . vundle_path
-call vundle#begin(vundle_path)
-Plugin 'VundleVim/Vundle.vim'
-
-" add your plugins here...
-Plugin 'Solarized'
-Plugin 'minibufexpl.vim'
-Plugin 'SuperTab'
-
-" end plugns here	
-call vundle#end()
-
-if iCanHazVundle == 0
-	echo "Installing Plugins..."
-	echo ""
-	:PluginInstall
-endif
-
-" miniBufExplorer settings
-let g:miniBufExplMapWindowNavVim = 1
-let g:miniBufExplMapWindowNavArrows = 1
-let g:miniBufExplMapCTabSwitchBufs = 1
-let g:miniBufExplModSelTarget = 1
-
-" SuperTab settings
-let g:SuperTabDefaultCompletionType = "context"
-set completeopt=menuone,longest,preview
 
 "" Only do this part when compiled with support for autocommands.
 if has("autocmd")
@@ -72,18 +68,16 @@ if has("autocmd")
 	
 	
 	augroup END		" end of vimrcEx augroup
-
-
-else
-	set autoindent		" always set autoindenting on
-
+	
 endif " has("autocmd")
 
 
-"" Set the font to use
+
+
+"" UI Settings, fonts, colors, etc.
 if has("gui_running")
 	if has("gui_gtk2")
-		set gfn=Bitstream\ Vera\ Sans\ Mono\ 10
+		set guifont=Bitstream\ Vera\ Sans\ Mono\ 10
 
 	elseif has("x11")
 		set guifont=-*-courier-medium-r-normal-*-*-180-*-*-m-*-*
@@ -92,6 +86,7 @@ if has("gui_running")
 		set guifont=Droid\ Sans\ Mono\ Slashed:h12
 
 	endif
+
 	"" Disable the toolbar in gui windows...
 	set guioptions-=T
 
@@ -100,6 +95,7 @@ if has("gui_running")
 	highlight Pmenu guibg=grey gui=bold
 
 else
+	colorscheme slate
 	highlight Pmenu ctermbg=238 gui=bold
 
 endif
@@ -113,7 +109,10 @@ syntax enable
 " Also load indent files, to automatically do language-dependent indenting.
 filetype plugin indent on
 
-" omni complete all
+"" always autoindent
+set autoindent	
+
+"" omni complete all
 "set omnifunc=syntaxcomplete#Complete
 
 "" handle unicode files
@@ -142,7 +141,7 @@ set ts=4 sts=4 sw=4 noexpandtab
 " Set viewing matched braces, brackets and parens
 set showmatch
 
-" Change <leader> from \ to ,
+"" Change <leader> from \ to ,
 let mapleader=","
 
 """
@@ -156,7 +155,7 @@ set listchars=tab:▸\ ,eol:¬
 
 """
 " http://dancingpenguinsoflight.com/2009/02/python-and-vim-make-your-own-ide/
-" I changed this command to use \n for the shortcut
+" Use <leader>n to toggle line number on off
 nnoremap <leader>n :set nonumber!<CR>:set foldcolumn=0<CR>
 
 """
@@ -164,7 +163,7 @@ nnoremap <leader>n :set nonumber!<CR>:set foldcolumn=0<CR>
 "<leader>v brings up my .vimrc
 "<leader>V reloads it -- making all changes active (have to save first)
 nmap <silent> <leader>v :e $MYVIMRC<CR>
-nmap <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
+nmap <silent> <leader>V :source $MYVIMRC<CR>:filetype detect<CR>:exe ":echo 'reloaded $MYVIMRC...'"<CR>
 
 ""
 " Open a web-browser with the URL in the current line
