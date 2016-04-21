@@ -6,31 +6,28 @@
 set nocompatible	" be iMproved, required by vundle
 filetype off " required by vundle
 
-" set os specific vars here
+"" Set OS specific vars here
 if has("win32") || has("win16")
-	let vim_path = expand("~/vimfiles")
-	let vimrc_path = expand("~/_vimrc")
+	let s:vim_path = expand("~/vimfiles")
 else
-	let vim_path = expand("~/.vim")
-	let vimrc_path = expand("~/.vimrc")
+	let s:vim_path = expand("~/.vim")
 endif
 
-" load Vundle
-" Setting up Vundle - the vim plugin bundler
-let iCanHazVundle=1
-let bundle_path = vim_path . "/bundle"
-let vundle_path = bundle_path . "/Vundle.vim"
-let vundle_readme = vundle_path . "/README.md"
+"" Setting up Vundle - the vim plugin bundler
+let s:vundle_path = s:vim_path . "/bundle/Vundle.vim"
+let s:vundle_readme = s:vundle_path . "/README.md"
 
-" only do vundle stuff it is installed
-if filereadable(vundle_readme)
+" Only initialize the vundle stuff if it is installed
+if filereadable(s:vundle_readme)
 
-	exe "set rtp+=" . vundle_path
-	call vundle#begin(vundle_path)
+	exe "set rtp+=" . s:vundle_path
+	call vundle#begin()
+
+	" let Vunlde manage Vundle, required!
 	Plugin 'VundleVim/Vundle.vim'
 
 	" add your plugins here...
-	Plugin 'Solarized'
+	"Plugin 'Solarized'
 	Plugin 'minibufexpl.vim'
 	Plugin 'SuperTab'
 
@@ -46,6 +43,7 @@ if filereadable(vundle_readme)
 	" SuperTab settings
 	let g:SuperTabDefaultCompletionType = "context"
 	set completeopt=menuone,longest,preview
+
 endif
 
 "" Only do this part when compiled with support for autocommands.
@@ -66,13 +64,9 @@ if has("autocmd")
 		\   exe "normal g`\"" |
 		\ endif
 	
-	
 	augroup END		" end of vimrcEx augroup
 	
 endif " has("autocmd")
-
-
-
 
 "" UI Settings, fonts, colors, etc.
 if has("gui_running")
@@ -108,9 +102,6 @@ syntax enable
 " 'cindent' is on in C files, etc.
 " Also load indent files, to automatically do language-dependent indenting.
 filetype plugin indent on
-
-"" always autoindent
-set autoindent	
 
 "" omni complete all
 "set omnifunc=syntaxcomplete#Complete
@@ -155,13 +146,13 @@ set listchars=tab:▸\ ,eol:¬
 
 """
 " http://dancingpenguinsoflight.com/2009/02/python-and-vim-make-your-own-ide/
-" Use <leader>n to toggle line number on off
+" <leader>n to toggle line number on off
 nnoremap <leader>n :set nonumber!<CR>:set foldcolumn=0<CR>
 
 """
 " http://www.oreillynet.com/onlamp/blog/2006/08/make_your_vimrc_trivial_to_upd_1.html
-"<leader>v brings up my .vimrc
-"<leader>V reloads it -- making all changes active (have to save first)
+" <leader>v brings up my .vimrc
+" <leader>V reloads it -- making all changes active (have to save first)
 nmap <silent> <leader>v :e $MYVIMRC<CR>
 nmap <silent> <leader>V :source $MYVIMRC<CR>:filetype detect<CR>:exe ":echo 'reloaded $MYVIMRC...'"<CR>
 
@@ -187,7 +178,7 @@ function! OpenURI()
 endfunction
 
 ""
-" open file or uri
+" Open a file or uri
 function! OpenFile(f)
 	let s:file=a:f
 	let s:cmd=""
@@ -207,7 +198,6 @@ function! OpenFile(f)
 endfunction
 nmap <Leader>w :call OpenURI()<CR>
 nmap <leader>W :update<CR>:call OpenFile(expand('%:p'))<CR>
-
 
 " MRB - End Personal Settings
 """
