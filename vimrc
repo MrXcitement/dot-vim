@@ -85,12 +85,12 @@ if has("gui_running")
 	set guioptions-=T
 
 	"" Set the colorscheme
-	colorscheme solarized
-	highlight Pmenu guibg=grey gui=bold
+	"colorscheme solarized
+	"highlight Pmenu guibg=grey gui=bold
 
 else
-	colorscheme slate
-	highlight Pmenu ctermbg=238 gui=bold
+	"colorscheme slate
+	"highlight Pmenu ctermbg=238 gui=bold
 
 endif
 
