@@ -5,45 +5,55 @@
 "
 set nocompatible	" vi compatability disabled
 
+" load Vundle
+" Setting up Vundle - the vim plugin bundler
+let iCanHazVundle=1
+if has("win32") || has("win16")
+	let vim_path = expand("~/vimfiles")
+else
+	let vim_path = expand("~/.vim")
+endif
+let bundle_path = vim_path . "/bundle"
+let vundle_path = bundle_path . "/Vundle.vim"
+let vundle_readme = vundle_path . "/README.md"
+if !filereadable(vundle_readme)
+	echo "Installing Vundle..."
+	echo ""
+	silent exe "%r! mkdir " . bundle_path
+	silent exe "%r! git clone https://github.com/VundleVim/Vundle.vim " . vundle_path
+	let iCanHazVundle=0
+endif
+
+exe "set rtp+=" . vundle_path
+call vundle#begin(vundle_path)
+"Plugin 'VundleVim/Vundle.vim'
+
+" add your plugins here...
+"Plugin 'Solarized'
+"Plugin 'minibufexpl.vim'
+"Plugin 'SuperTab'
+
+" end plugns here	
+call vundle#end()
+
+if iCanHazVundle == 0
+	echo "Installing Plugins..."
+	echo ""
+	:PluginInstall
+endif
+
+" miniBufExplorer settings
+"let g:miniBufExplMapWindowNavVim = 1
+"let g:miniBufExplMapWindowNavArrows = 1
+"let g:miniBufExplMapCTabSwitchBufs = 1
+"let g:miniBufExplModSelTarget = 1
+
+" SuperTab settings
+"let g:SuperTabDefaultCompletionType = "context"
+"set completeopt=menuone,longest,preview
+
 "" Only do this part when compiled with support for autocommands.
 if has("autocmd")
-
-	" load Vundle
-	" Setting up Vundle - the vim plugin bundler
-	let iCanHazVundle=1
-	let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
-	if !filereadable(vundle_readme)
-		echo "Installing Vundle..."
-		echo ""
-		silent !mkdir -p ~/vim/bundle
-		silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
-		let iCanHazVundle=0
-	endif
-	set rtp+=~/.vim/bundle/vundle/
-	call vundle#rc()
-	Plugin 'gmarik/vundle'
-	
-	" add your plugins here...
-	Plugin 'Solarized'
-	Plugin 'minibufexpl.vim'
-	Plugin 'SuperTab'
-
-	" end plugns here	
-	if iCanHazVundle == 0
-		echo "Installing Plugins..."
-		echo ""
-		:PluginInstall
-	endif
-	
-	" miniBufExplorer settings
-	let g:miniBufExplMapWindowNavVim = 1
-	let g:miniBufExplMapWindowNavArrows = 1
-	let g:miniBufExplMapCTabSwitchBufs = 1
-	let g:miniBufExplModSelTarget = 1
-
-	" SuperTab settings
-	"let g:SuperTabDefaultCompletionType = "context"
-	"set completeopt=menuone,longest,preview
 
 	" Put these in an autocmd group, so that we can delete them easily.
 	augroup vimrcEx
