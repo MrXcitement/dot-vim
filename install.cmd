@@ -21,3 +21,8 @@ rem to the users profile directory.
 mklink %HOME%\_vimrc %~dp0vimrc
 mklink /d %HOME%\vimfiles %~dp0vim
 
+rem Git clone the Vundle plugin manager
+git clone https://github.com/VundleVim/Vundle.vim.git %HOME%\vimfiles\bundle\Vundle.vim
+
+rem Use vim and Vundle to install plugins 
+vim +PluginInstall +qall
