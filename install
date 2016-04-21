@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+
+# install -- make symbolic links in the users home directory
+# Mike Barker <mike@thebarkers.com>
+# May 14th, 2013
+
+# 2015.04.30 MRB
+# Renamed from makelinks.sh to install.sh
+# Force create the sympolic links
+
+# 2016.04.21 MRB
+# - Rewrite to be less generic
+
+
+link() {
+	local src=$1
+	local dst=$2
+	echo "Linking ${dst} to ${src} ..."
+	if [ -a ${dst} ]; then
+		if ! [ -h ${dst} ]; then
+			echo "Backing up ${dst} to ${dst}.backup"
+			mv ${dst} ${dst}.backup
+		fi
+	fi
+	ln -fsv ${src} ${dst}
+}
+
+makedir() {
+	local dir=$1
+	echo "Making directory ${dir} ..."
+	if [ -a ${dir} ]; then
+		echo "Backing up ${dir} to ${dir}.backup"
+		mv ${dir} ${dir}.backup
+	fi
+	mkdir ${dir}
+}
+ 
+echo "$(basename $0)"
+echo "Make sympolic links in the users home directory to the bash config files and directories"
+
+CWD="$(cd "$(dirname "$0")" && pwd)"
+
+link ${CWD}/vimrc ${HOME}/.vimrc
+makedir "${HOME}/.vim"
+
