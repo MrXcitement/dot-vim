@@ -27,7 +27,7 @@ if filereadable(s:vundle_readme)
 	Plugin 'VundleVim/Vundle.vim'
 
 	" add your plugins here...
-	"Plugin 'Solarized'
+	Plugin 'Solarized'
 	Plugin 'minibufexpl.vim'
 	Plugin 'SuperTab'
 
