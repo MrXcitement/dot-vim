@@ -1,5 +1,9 @@
 # vim history files
 .netrwhist
-
-vim/bundle
 .vimrc.swp
+
+# ignore all files and dirs in the vim/bundle directory
+# except the README.md file.
+vim/bundle/**
+vim/bundle/README.md!
+
