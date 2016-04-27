@@ -28,11 +28,15 @@ if filereadable(s:vundle_readme)
 
 	" add your plugins here...
 	"Plugin 'Solarized'
+	Plugin 'bling/vim-airline'
 	Plugin 'minibufexpl.vim'
 	Plugin 'SuperTab'
 
 	" end plugns here	
 	call vundle#end()
+
+	" vim-airline settings
+	set laststatus=2
 
 	" miniBufExplorer settings
 	let g:miniBufExplMapWindowNavVim = 1
