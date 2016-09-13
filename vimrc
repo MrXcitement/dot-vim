@@ -144,20 +144,6 @@ set ts=4 sts=4 sw=4 noexpandtab
 set showmatch
 
 """
-" Python mode
-augroup filetype_python
-	autocmd!
-	autocmd BufNewFile,BufRead *.py
-		\ set tabstop=4
-		\ softtabstop=4
-		\ shiftwidth=4
-		\ textwidth=79
-		\ expandtab
-		\ autoindent
-		\ fileformat=unix
-augroup END
-
-"""
 " Html/css/js mode
 augroup filetype_html
 	autocmd!
