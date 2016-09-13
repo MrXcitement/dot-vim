@@ -108,7 +108,7 @@ syntax enable
 filetype plugin indent on
 
 "" omni complete all
-"set omnifunc=syntaxcomplete#Complete
+set omnifunc=syntaxcomplete#Complete
 
 "" handle unicode files
 set encoding=utf-8
@@ -119,6 +119,8 @@ set backspace=indent,eol,start
 set history=50		" keep 50 lines of command line history
 set ruler			" show the cursor position all the time
 set showcmd			" display incomplete commands
+set number			" display line numbers
+set relativenumber	" display relative number from current line
 
 "" Whitespace
 set nowrap
@@ -129,6 +131,11 @@ set incsearch
 set ignorecase
 set smartcase
 
+""" enable folding
+set foldmethod=indent
+set foldlevel=99
+
+
 """
 " http://vimcasts.org/episodes/tabs-and-spaces/ 
 " Set how tabs are handled
@@ -136,6 +143,29 @@ set ts=4 sts=4 sw=4 noexpandtab
 " Set viewing matched braces, brackets and parens
 set showmatch
 
+"""
+" Python mode
+augroup filetype_python
+	autocmd!
+	autocmd BufNewFile,BufRead *.py
+		\ set tabstop=4
+		\ softtabstop=4
+		\ shiftwidth=4
+		\ textwidth=79
+		\ expandtab
+		\ autoindent
+		\ fileformat=unix
+augroup END
+
+"""
+" Html/css/js mode
+augroup filetype_html
+	autocmd!
+	autocmd BufNewFile,BufRead *.html,*.css
+		\ set tabstop=2 |
+		\ set softtabstop=2 |
+		\ set shiftwidth=2 |
+augroup END
 "" Change <leader> from \ to ,
 let mapleader=","
 
