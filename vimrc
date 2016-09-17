@@ -4,7 +4,6 @@
 " Mike Barker <mike@thebarkers.com>
 "
 set nocompatible	" be iMproved, required by vundle
-filetype off " required by vundle
 
 "" Set OS specific vars here
 if has("win32") || has("win16")
@@ -14,6 +13,7 @@ else
 endif
 
 "" Setting up Vundle - the vim plugin bundler
+filetype off " required by vundle
 let s:vundle_path = s:vim_path . "/bundle/Vundle.vim"
 let s:vundle_readme = s:vundle_path . "/README.md"
 
@@ -27,10 +27,10 @@ if filereadable(s:vundle_readme)
 	Plugin 'VundleVim/Vundle.vim'
 
 	" add your plugins here...
-	"Plugin 'Solarized'
 	Plugin 'bling/vim-airline'
 	Plugin 'minibufexpl.vim'
 	Plugin 'SuperTab'
+	Plugin 'hashivim/vim-vagrant'
 
 	" end plugns here	
 	call vundle#end()
@@ -45,7 +45,7 @@ if filereadable(s:vundle_readme)
 	let g:miniBufExplModSelTarget = 1
 
 	" SuperTab settings
-	let g:SuperTabDefaultCompletionType = "context"
+	let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
 	set completeopt=menuone,longest,preview
 
 endif
@@ -69,7 +69,6 @@ if has("autocmd")
 		\ endif
 	
 	augroup END		" end of vimrcEx augroup
-	
 endif " has("autocmd")
 
 "" UI Settings, fonts, colors, etc.
@@ -93,8 +92,8 @@ if has("gui_running")
 	"highlight Pmenu guibg=grey gui=bold
 
 else
-	"colorscheme slate
-	"highlight Pmenu ctermbg=238 gui=bold
+	highlight Pmenu ctermbg=blue ctermfg=white
+	highlight PmenuSel ctermbg=darkblue ctermfg=white
 
 endif
 
@@ -140,18 +139,10 @@ set foldlevel=99
 " http://vimcasts.org/episodes/tabs-and-spaces/ 
 " Set how tabs are handled
 set ts=4 sts=4 sw=4 noexpandtab
+
 " Set viewing matched braces, brackets and parens
 set showmatch
 
-"""
-" Html/css/js mode
-augroup filetype_html
-	autocmd!
-	autocmd BufNewFile,BufRead *.html,*.css
-		\ set tabstop=2 |
-		\ set softtabstop=2 |
-		\ set shiftwidth=2 |
-augroup END
 "" Change <leader> from \ to ,
 let mapleader=","
 
