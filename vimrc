@@ -1,18 +1,58 @@
-""
+" vim:fdm=marker:
+"
 " .vimrc -- Vim Configuration File.
 "
 " Mike Barker <mike@thebarkers.com>
 "
-set nocompatible	" be iMproved, required by vundle
 
-"" Set OS specific vars here
+" Enable file type detection. {{{
+" Use the default filetype settings, so that mail gets 'tw' set to 72,
+" 'cindent' is on in C files, etc.
+" Also load indent files, to automatically do language-dependent indenting.
+filetype plugin indent on
+" }}}
+
+" Misc settings {{{
+set nocompatible	" be iMproved, required by vundle
+set encoding=utf-8	" handle unicode files
+set backspace=indent,eol,start " allow backspacing over everything in insert mode
+set history=50		" keep 50 lines of command line history
+set ruler			" show the cursor position all the time
+set showcmd			" display incomplete commands
+set nowrap			" Whitespace
+set showmatch		" Set viewing matched braces, brackets and parens
+set omnifunc=syntaxcomplete#Complete	" omni complete all
+" }}}
+
+" Line number - relative numbers with current line number {{{
+set number			" display line numbers
+set relativenumber	" display relative number from current line
+" }}}
+
+" Searching {{{
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+" }}}
+
+" Indentation {{{
+" at http://vimcasts.org/episodes/tabs-and-spaces/ 
+set tabstop=4 
+set softtabstop=4 
+set shiftwidth=4
+set expandtab
+" }}}
+
+"" Set OS specific paths {{{
 if has("win32") || has("win16")
 	let s:vim_path = expand("~/vimfiles")
 else
 	let s:vim_path = expand("~/.vim")
 endif
+" }}}
 
-"" Setting up Vundle - the vim plugin bundler
+" Setting up Vundle - the vim plugin bundler {{{
 filetype off " required by vundle
 let s:vundle_path = s:vim_path . "/bundle/Vundle.vim"
 let s:vundle_readme = s:vundle_path . "/README.md"
@@ -27,10 +67,11 @@ if filereadable(s:vundle_readme)
 	Plugin 'VundleVim/Vundle.vim'
 
 	" add your plugins here...
-	Plugin 'bling/vim-airline'
-	Plugin 'minibufexpl.vim'
 	Plugin 'SuperTab'
+	Plugin 'vim-airline/vim-airline'
+	Plugin 'fholgado/minibufexpl.vim'
 	Plugin 'hashivim/vim-vagrant'
+	Plugin 'vim-scripts/indentpython.vim'
 
 	" end plugns here	
 	call vundle#end()
@@ -39,6 +80,11 @@ if filereadable(s:vundle_readme)
 	set laststatus=2
 
 	" miniBufExplorer settings
+	nnoremap <leader>mbe :MBEOpen<CR>
+	nnoremap <leader>mbc :MBEClose<CR>
+	nnoremap <leader>mbt :MBEToggle<CR>
+	nnoremap <leader>mbf :MBEFocus<CR>
+
 	let g:miniBufExplMapWindowNavVim = 1
 	let g:miniBufExplMapWindowNavArrows = 1
 	let g:miniBufExplMapCTabSwitchBufs = 1
@@ -49,8 +95,10 @@ if filereadable(s:vundle_readme)
 	set completeopt=menuone,longest,preview
 
 endif
+" }}}
 
-"" Only do this part when compiled with support for autocommands.
+" Configure autocomands {{{
+" Only do this part when compiled with support for autocommands.
 if has("autocmd")
 
 	" Put these in an autocmd group, so that we can delete them easily.
@@ -70,9 +118,11 @@ if has("autocmd")
 	
 	augroup END		" end of vimrcEx augroup
 endif " has("autocmd")
+" }}}
 
-"" UI Settings, fonts, colors, etc.
+" UI Settings, fonts, colors, etc. {{{
 if has("gui_running")
+	" GUI Settings {{{
 	if has("gui_gtk2")
 		set guifont=Bitstream\ Vera\ Sans\ Mono\ 10
 
@@ -90,84 +140,51 @@ if has("gui_running")
 	"" Set the colorscheme
 	"colorscheme solarized
 	"highlight Pmenu guibg=grey gui=bold
-
+	" }}}
 else
+	" CUI Settings {{{
 	highlight Pmenu ctermbg=blue ctermfg=white
 	highlight PmenuSel ctermbg=darkblue ctermfg=white
-
+	" }}}
 endif
-
-"" Base settings
 syntax enable
+" }}}
 
-" Enable file type detection.
-" Use the default filetype settings, so that mail gets 'tw' set to 72,
-" 'cindent' is on in C files, etc.
-" Also load indent files, to automatically do language-dependent indenting.
-filetype plugin indent on
-
-"" omni complete all
-set omnifunc=syntaxcomplete#Complete
-
-"" handle unicode files
-set encoding=utf-8
-
-"" allow backspacing over everything in insert mode
-set backspace=indent,eol,start
-
-set history=50		" keep 50 lines of command line history
-set ruler			" show the cursor position all the time
-set showcmd			" display incomplete commands
-set number			" display line numbers
-set relativenumber	" display relative number from current line
-
-"" Whitespace
-set nowrap
-
-"" Searching
-set hlsearch
-set incsearch
-set ignorecase
-set smartcase
-
-""" enable folding
-set foldmethod=indent
-set foldlevel=99
-
-
-"""
-" http://vimcasts.org/episodes/tabs-and-spaces/ 
-" Set how tabs are handled
-set ts=4 sts=4 sw=4 noexpandtab
-
-" Set viewing matched braces, brackets and parens
-set showmatch
-
-"" Change <leader> from \ to ,
+" Change <leader> from \ to , {{{
 let mapleader=","
+" }}}
 
-"""
+" remap - <leader>l toggles viewing whitespace {{{
 " http://vimcasts.org/episodes/show-invisibles/
-" <leader>l toggles viewing whitespace.
-nmap <leader>l :set list!<CR>
 " Use TextMate symbols for tabstop and EOLs 
 " ctrl-v u25b8 for tab
 " ctrl-v u00ac for eol
+nnoremap <leader>l :set list!<CR>
 set listchars=tab:▸\ ,eol:¬
+" }}}
 
-"""
+" remap - <leader>n turn on/off line number {{{
 " http://dancingpenguinsoflight.com/2009/02/python-and-vim-make-your-own-ide/
 " <leader>n to toggle line number on off
 nnoremap <leader>n :set nonumber!<CR>:set foldcolumn=0<CR>
+" }}}
 
-"""
+" remap - <leader>v/V to edit/reload vimrc {{{
 " http://www.oreillynet.com/onlamp/blog/2006/08/make_your_vimrc_trivial_to_upd_1.html
 " <leader>v brings up my .vimrc
 " <leader>V reloads it -- making all changes active (have to save first)
-nmap <silent> <leader>v :e $MYVIMRC<CR>
-nmap <silent> <leader>V :source $MYVIMRC<CR>:filetype detect<CR>:exe ":echo 'reloaded $MYVIMRC...'"<CR>
+nnoremap <silent> <leader>v :e $MYVIMRC<CR>
+nnoremap <silent> <leader>V :source $MYVIMRC<CR>:filetype detect<CR>:exe ":echo 'reloaded $MYVIMRC...'"<CR>
+" }}}
 
-""
+" remap - window movement shortcuts {{{
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-H> <C-W><C-H>
+nnoremap <C-L> <C-W><C-L>
+" }}}
+
+" Function OpenURI {{{
 " Open a web-browser with the URL in the current line
 " http://vim.wikia.com/wiki/Open_a_web-browser_with_the_URL_in_the_current_line 
 " 2013-04-05 MRB - Modified to handle Apple's native vim as well as MacVim
@@ -187,8 +204,9 @@ function! OpenURI()
 		echohl None
 	endif
 endfunction
+" }}}
 
-""
+" Function OpenFile {{{
 " Open a file or uri
 function! OpenFile(f)
 	let s:file=a:f
@@ -207,8 +225,8 @@ function! OpenFile(f)
 	redraw!
 	echom s:cmd
 endfunction
-nmap <Leader>w :call OpenURI()<CR>
-nmap <leader>W :update<CR>:call OpenFile(expand('%:p'))<CR>
 
-" MRB - End Personal Settings
-"""
+nnoremap <Leader>w :call OpenURI()<CR>
+nnoremap <leader>W :update<CR>:call OpenFile(expand('%:p'))<CR>
+" }}}
+
