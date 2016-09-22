@@ -91,7 +91,11 @@ if filereadable(s:vundle_readme)
 	let g:miniBufExplModSelTarget = 1
 
 	" SuperTab settings
-	let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
+	" WTF! Not sure why, but when this line below is enabled, pressing tab
+	" inserts the word context and does not tab-complete the current word.
+	" Everywhere I see this being set for tab completion to work and yet that
+	" is not my experience. For now I have just commented it out.
+	"let g:SuperTabDefaultCompletionType = "context"
 	set completeopt=menuone,longest,preview
 
 endif
