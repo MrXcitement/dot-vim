@@ -12,21 +12,25 @@
 filetype plugin indent on
 " }}}
 
-" Misc settings {{{
-set nocompatible	" be iMproved, required by vundle
-set encoding=utf-8	" handle unicode files
+" Editor settings {{{
+set nocompatible    " be iMproved, required by vundle
+set encoding=utf-8  " handle unicode files
 set backspace=indent,eol,start " allow backspacing over everything in insert mode
-set history=50		" keep 50 lines of command line history
-set ruler			" show the cursor position all the time
-set showcmd			" display incomplete commands
-set nowrap			" Whitespace
-set showmatch		" Set viewing matched braces, brackets and parens
-set omnifunc=syntaxcomplete#Complete	" omni complete all
+set history=50      " keep 50 lines of command line history
+set ruler           " show the cursor position all the time
+set showcmd         " display incomplete commands
+set nowrap          " Whitespace
+set showmatch       " Set viewing matched braces, brackets and parens
+" }}}
+
+" Completion {{{
+set omnifunc=syntaxcomplete#Complete    " omni complete all
+set completeopt=menuone,longest,preview
 " }}}
 
 " Line number - relative numbers with current line number {{{
-set number			" display line numbers
-set relativenumber	" display relative number from current line
+set number          " display line numbers
+set relativenumber  " display relative number from current line
 " }}}
 
 " Searching {{{
@@ -37,18 +41,18 @@ set smartcase
 " }}}
 
 " Indentation {{{
-" at http://vimcasts.org/episodes/tabs-and-spaces/ 
-set tabstop=4 
-set softtabstop=4 
+" at http://vimcasts.org/episodes/tabs-and-spaces/
+set tabstop=4
+set softtabstop=4
 set shiftwidth=4
 set expandtab
 " }}}
 
 "" Set OS specific paths {{{
 if has("win32") || has("win16")
-	let s:vim_path = expand("~/vimfiles")
+    let s:vim_path = expand("~/vimfiles")
 else
-	let s:vim_path = expand("~/.vim")
+    let s:vim_path = expand("~/.vim")
 endif
 " }}}
 
@@ -60,43 +64,37 @@ let s:vundle_readme = s:vundle_path . "/README.md"
 " Only initialize the vundle stuff if it is installed
 if filereadable(s:vundle_readme)
 
-	exe "set rtp+=" . s:vundle_path
-	call vundle#begin()
+    exe "set rtp+=" . s:vundle_path
+    call vundle#begin()
 
-	" let Vunlde manage Vundle, required!
-	Plugin 'VundleVim/Vundle.vim'
+    " let Vunlde manage Vundle, required!
+    Plugin 'VundleVim/Vundle.vim'
 
-	" add your plugins here...
-	Plugin 'SuperTab'
-	Plugin 'vim-airline/vim-airline'
-	Plugin 'fholgado/minibufexpl.vim'
-	Plugin 'hashivim/vim-vagrant'
-	Plugin 'vim-scripts/indentpython.vim'
+    " add your plugins here...
+    Plugin 'SuperTab'
+    Plugin 'tpope/vim-fugitive'
+    Plugin 'vim-airline/vim-airline'
+    Plugin 'airblade/vim-gitgutter'
+    Plugin 'hashivim/vim-vagrant'
+    Plugin 'vim-scripts/indentpython.vim'
 
-	" end plugns here	
-	call vundle#end()
+    " end plugns here
+    call vundle#end()
 
-	" vim-airline settings
-	set laststatus=2
+    " vim-airline settings {{{
+    set laststatus=2
+    " Enable the list of buffers
+    let g:airline#extensions#tabline#enabled = 1
+    " Show just the filename
+    let g:airline#extensions#tabline#fnamemod = ':t'
+    " }}}
 
-	" miniBufExplorer settings
-	nnoremap <leader>mbe :MBEOpen<CR>
-	nnoremap <leader>mbc :MBEClose<CR>
-	nnoremap <leader>mbt :MBEToggle<CR>
-	nnoremap <leader>mbf :MBEFocus<CR>
-
-	let g:miniBufExplMapWindowNavVim = 1
-	let g:miniBufExplMapWindowNavArrows = 1
-	let g:miniBufExplMapCTabSwitchBufs = 1
-	let g:miniBufExplModSelTarget = 1
-
-	" SuperTab settings
-	" WTF! Not sure why, but when this line below is enabled, pressing tab
-	" inserts the word context and does not tab-complete the current word.
-	" Everywhere I see this being set for tab completion to work and yet that
-	" is not my experience. For now I have just commented it out.
-	"let g:SuperTabDefaultCompletionType = "context"
-	set completeopt=menuone,longest,preview
+    " SuperTab settings
+    " WTF! Not sure why, but when this line below is enabled, pressing tab
+    " inserts the word context and does not tab-complete the current word.
+    " Everywhere I see this being set for tab completion to work and yet that
+    " is not my experience. For now I have just commented it out.
+    "let g:SuperTabDefaultCompletionType = "context"
 
 endif
 " }}}
@@ -105,51 +103,51 @@ endif
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
 
-	" Put these in an autocmd group, so that we can delete them easily.
-	augroup vimrcEx
-	au!
+    " Put these in an autocmd group, so that we can delete them easily.
+    augroup vimrcEx
+    au!
 
-	" For all text files set 'textwidth' to 78 characters.
-	autocmd FileType text setlocal textwidth=78
+    " For all text files set 'textwidth' to 78 characters.
+    autocmd FileType text setlocal textwidth=78
 
-	" When editing a file, always jump to the last known cursor position.
-	" Don't do it when the position is invalid or when inside an event handler
-	" (happens when dropping a file on gvim).
-	autocmd BufReadPost *
-		\ if line("'\"") > 0 && line("'\"") <= line("$") |
-		\   exe "normal g`\"" |
-		\ endif
-	
-	augroup END		" end of vimrcEx augroup
+    " When editing a file, always jump to the last known cursor position.
+    " Don't do it when the position is invalid or when inside an event handler
+    " (happens when dropping a file on gvim).
+    autocmd BufReadPost *
+        \ if line("'\"") > 0 && line("'\"") <= line("$") |
+        \   exe "normal g`\"" |
+        \ endif
+
+    augroup END     " end of vimrcEx augroup
 endif " has("autocmd")
 " }}}
 
 " UI Settings, fonts, colors, etc. {{{
 if has("gui_running")
-	" GUI Settings {{{
-	if has("gui_gtk2")
-		set guifont=Bitstream\ Vera\ Sans\ Mono\ 10
+    " GUI Settings {{{
+    if has("gui_gtk2")
+        set guifont=Bitstream\ Vera\ Sans\ Mono\ 10
 
-	elseif has("x11")
-		set guifont=-*-courier-medium-r-normal-*-*-180-*-*-m-*-*
+    elseif has("x11")
+        set guifont=-*-courier-medium-r-normal-*-*-180-*-*-m-*-*
 
-	else
-		set guifont=Droid\ Sans\ Mono\ Slashed:h12
+    else
+        set guifont=Droid\ Sans\ Mono\ Slashed:h12
 
-	endif
+    endif
 
-	"" Disable the toolbar in gui windows...
-	set guioptions-=T
+    "" Disable the toolbar in gui windows...
+    set guioptions-=T
 
-	"" Set the colorscheme
-	"colorscheme solarized
-	"highlight Pmenu guibg=grey gui=bold
-	" }}}
+    "" Set the colorscheme
+    "colorscheme solarized
+    "highlight Pmenu guibg=grey gui=bold
+    " }}}
 else
-	" CUI Settings {{{
-	highlight Pmenu ctermbg=blue ctermfg=white
-	highlight PmenuSel ctermbg=darkblue ctermfg=white
-	" }}}
+    " CUI Settings {{{
+    highlight Pmenu ctermbg=blue ctermfg=white
+    highlight PmenuSel ctermbg=darkblue ctermfg=white
+    " }}}
 endif
 syntax enable
 " }}}
@@ -160,7 +158,7 @@ let mapleader=","
 
 " remap - <leader>l toggles viewing whitespace {{{
 " http://vimcasts.org/episodes/show-invisibles/
-" Use TextMate symbols for tabstop and EOLs 
+" Use TextMate symbols for tabstop and EOLs
 " ctrl-v u25b8 for tab
 " ctrl-v u00ac for eol
 nnoremap <leader>l :set list!<CR>
@@ -190,7 +188,7 @@ nnoremap <C-L> <C-W><C-L>
 
 " Function OpenURI {{{
 " Open a web-browser with the URL in the current line
-" http://vim.wikia.com/wiki/Open_a_web-browser_with_the_URL_in_the_current_line 
+" http://vim.wikia.com/wiki/Open_a_web-browser_with_the_URL_in_the_current_line
 " 2013-04-05 MRB - Modified to handle Apple's native vim as well as MacVim
 " by moving the system check under has('unix') and then testing the uname
 " value.
@@ -199,38 +197,37 @@ nnoremap <C-L> <C-W><C-L>
 " file type being edited. i.e. open the current html file in the default
 " browser.
 function! OpenURI()
-	let s:uri = matchstr(getline("."), '[a-z]*:\/\/[^ >,;:"]*')
-	if s:uri != ""
-		call OpenFile(s:uri)
-	else
-		echohl WarningMsg
-		echom "No URI found in current line."
-		echohl None
-	endif
+    let s:uri = matchstr(getline("."), '[a-z]*:\/\/[^ >,;:"]*')
+    if s:uri != ""
+        call OpenFile(s:uri)
+    else
+        echohl WarningMsg
+        echom "No URI found in current line."
+        echohl None
+    endif
 endfunction
 " }}}
 
 " Function OpenFile {{{
 " Open a file or uri
 function! OpenFile(f)
-	let s:file=a:f
-	let s:cmd=""
-	if has("win32")
-		let s:cmd = ":silent !start \"" . s:file . "\""
-	elseif has("unix")
-		let os=substitute(system('uname'), '\n', '', '')
-		if os == 'Darwin' || os == 'Mac'
-			let s:cmd = ":silent !open \"" . s:file . "\"" 
-		else
-			let s:cmd = ":silent !xdg-open \"" . s:file . "\""
-		endif
-	endif
-	exec s:cmd
-	redraw!
-	echom s:cmd
+    let s:file=a:f
+    let s:cmd=""
+    if has("win32")
+        let s:cmd = ":silent !start \"" . s:file . "\""
+    elseif has("unix")
+        let os=substitute(system('uname'), '\n', '', '')
+        if os == 'Darwin' || os == 'Mac'
+            let s:cmd = ":silent !open \"" . s:file . "\""
+        else
+            let s:cmd = ":silent !xdg-open \"" . s:file . "\""
+        endif
+    endif
+    exec s:cmd
+    redraw!
+    echom s:cmd
 endfunction
 
 nnoremap <Leader>w :call OpenURI()<CR>
 nnoremap <leader>W :update<CR>:call OpenFile(expand('%:p'))<CR>
 " }}}
-
