@@ -4,14 +4,12 @@
 "
 " Mike Barker <mike@thebarkers.com>
 "
-
 " Enable file type detection. {{{
 " Use the default filetype settings, so that mail gets 'tw' set to 72,
 " 'cindent' is on in C files, etc.
 " Also load indent files, to automatically do language-dependent indenting.
 filetype plugin indent on
 " }}}
-
 " Editor settings {{{
 set nocompatible    " be iMproved, required by vundle
 set encoding=utf-8  " handle unicode files
@@ -22,24 +20,20 @@ set showcmd         " display incomplete commands
 set nowrap          " Whitespace
 set showmatch       " Set viewing matched braces, brackets and parens
 " }}}
-
 " Completion {{{
 set omnifunc=syntaxcomplete#Complete    " omni complete all
 set completeopt=menuone,longest,preview
 " }}}
-
 " Line number - relative numbers with current line number {{{
 set number          " display line numbers
 set relativenumber  " display relative number from current line
 " }}}
-
 " Searching {{{
 set hlsearch
 set incsearch
 set ignorecase
 set smartcase
 " }}}
-
 " Indentation {{{
 " at http://vimcasts.org/episodes/tabs-and-spaces/
 set tabstop=4
@@ -47,16 +41,14 @@ set softtabstop=4
 set shiftwidth=4
 set expandtab
 " }}}
-
-"" Set OS specific paths {{{
+" Set OS specific paths {{{
 if has("win32") || has("win16")
     let s:vim_path = expand("~/vimfiles")
 else
     let s:vim_path = expand("~/.vim")
 endif
 " }}}
-
-" Setting up Vundle - the vim plugin bundler {{{
+"Vundle - the vim plugin bundler {{{
 filetype off " required by vundle
 let s:vundle_path = s:vim_path . "/bundle/Vundle.vim"
 let s:vundle_readme = s:vundle_path . "/README.md"
@@ -98,7 +90,6 @@ if filereadable(s:vundle_readme)
 
 endif
 " }}}
-
 " Configure autocomands {{{
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
@@ -121,10 +112,10 @@ if has("autocmd")
     augroup END     " end of vimrcEx augroup
 endif " has("autocmd")
 " }}}
-
 " UI Settings, fonts, colors, etc. {{{
 if has("gui_running")
     " GUI Settings {{{
+    let g:airline_powerline_fonts = 1
     if has("gui_gtk2")
         set guifont=Bitstream\ Vera\ Sans\ Mono\ 10
 
@@ -132,7 +123,7 @@ if has("gui_running")
         set guifont=-*-courier-medium-r-normal-*-*-180-*-*-m-*-*
 
     else
-        set guifont=Droid\ Sans\ Mono\ Slashed:h12
+        set guifont=Menlo\ for\ Powerline
 
     endif
 
@@ -147,15 +138,15 @@ else
     " CUI Settings {{{
     highlight Pmenu ctermbg=blue ctermfg=white
     highlight PmenuSel ctermbg=darkblue ctermfg=white
+    let g:airline_left_sep=''   " airline left seperator
+    let g:airline_right_sep=''  " airline right seperator
     " }}}
 endif
 syntax enable
 " }}}
-
 " Change <leader> from \ to , {{{
 let mapleader=","
 " }}}
-
 " remap - <leader>l toggles viewing whitespace {{{
 " http://vimcasts.org/episodes/show-invisibles/
 " Use TextMate symbols for tabstop and EOLs
@@ -164,13 +155,11 @@ let mapleader=","
 nnoremap <leader>l :set list!<CR>
 set listchars=tab:▸\ ,eol:¬
 " }}}
-
 " remap - <leader>n turn on/off line number {{{
 " http://dancingpenguinsoflight.com/2009/02/python-and-vim-make-your-own-ide/
 " <leader>n to toggle line number on off
 nnoremap <leader>n :set nonumber!<CR>:set foldcolumn=0<CR>
 " }}}
-
 " remap - <leader>v/V to edit/reload vimrc {{{
 " http://www.oreillynet.com/onlamp/blog/2006/08/make_your_vimrc_trivial_to_upd_1.html
 " <leader>v brings up my .vimrc
@@ -178,14 +167,12 @@ nnoremap <leader>n :set nonumber!<CR>:set foldcolumn=0<CR>
 nnoremap <silent> <leader>v :e $MYVIMRC<CR>
 nnoremap <silent> <leader>V :source $MYVIMRC<CR>:filetype detect<CR>:exe ":echo 'reloaded $MYVIMRC...'"<CR>
 " }}}
-
 " remap - window movement shortcuts {{{
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-H> <C-W><C-H>
 nnoremap <C-L> <C-W><C-L>
 " }}}
-
 " Function OpenURI {{{
 " Open a web-browser with the URL in the current line
 " http://vim.wikia.com/wiki/Open_a_web-browser_with_the_URL_in_the_current_line
@@ -207,7 +194,6 @@ function! OpenURI()
     endif
 endfunction
 " }}}
-
 " Function OpenFile {{{
 " Open a file or uri
 function! OpenFile(f)
