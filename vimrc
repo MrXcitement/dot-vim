@@ -42,16 +42,17 @@ set shiftwidth=4
 set expandtab
 " }}}
 " Set OS specific paths {{{
+" }}}
+"Vundle - the vim plugin bundler {{{
+filetype off " required by vundle
+
 if has("win32") || has("win16")
     let s:vim_path = expand("~/vimfiles")
 else
     let s:vim_path = expand("~/.vim")
 endif
-" }}}
-"Vundle - the vim plugin bundler {{{
-filetype off " required by vundle
 let s:vundle_path = s:vim_path . "/bundle/Vundle.vim"
-let s:vundle_readme = s:vundle_path . "/README.md"
+let s:vundle_readme = expand(s:vundle_path . "/README.md")
 
 " Only initialize the vundle stuff if it is installed
 if filereadable(s:vundle_readme)
@@ -115,16 +116,15 @@ endif " has("autocmd")
 " UI Settings, fonts, colors, etc. {{{
 if has("gui_running")
     " GUI Settings {{{
-    let g:airline_powerline_fonts = 1
     if has("gui_gtk2")
         set guifont=Bitstream\ Vera\ Sans\ Mono\ 10
-
     elseif has("x11")
         set guifont=-*-courier-medium-r-normal-*-*-180-*-*-m-*-*
-
+    elseif has("win32")
+        set guifont=Consolas:h12
     else
         set guifont=Menlo\ for\ Powerline
-
+        let g:airline_powerline_fonts = 1
     endif
 
     "" Disable the toolbar in gui windows...
