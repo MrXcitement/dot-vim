@@ -16,13 +16,22 @@ if %errorlevel% NEQ 0 (
 	exit /B
 )
 
+rem Check if %HOME% is defined, set it to %USERPROFILE% if not
+if "%HOME%"=="" (
+	echo Setting the home directory
+	SETX HOME %USERPROFILE% 
+	SET HOME=%USERPROFILE%
+)
+
 rem Link the vimrc file and vim directory from the current directory 
 rem to the users profile directory.
 mklink %HOME%\_vimrc %~dp0vimrc
+mklink %HOME%\.vimrc %~dp0vimrc
 mklink /d %HOME%\vimfiles %~dp0vim
+mklink /d %HOME%\.vim %~dp0vim
 
 rem Git clone the Vundle plugin manager
 git clone https://github.com/VundleVim/Vundle.vim.git %HOME%\vimfiles\bundle\Vundle.vim
 
-rem Use vim and Vundle to install plugins 
-vim +PluginInstall +qall
+echo Use vim and Vundle to install plugins 
+echo vim +PluginInstall +qall
