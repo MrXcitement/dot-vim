@@ -4,6 +4,59 @@
 "
 " Mike Barker <mike@thebarkers.com>
 "
+" OS specific paths {{{
+if has("win32") || has("win16")
+    let s:vim_path = expand("~/vimfiles")
+else
+    let s:vim_path = expand("~/.vim")
+endif
+" }}}
+" Vundle - the vim plugin bundler {{{
+filetype off " required by vundle
+let s:vundle_path = s:vim_path . "/bundle/Vundle.vim"
+let s:vundle_readme = expand(s:vundle_path . "/README.md")
+
+" Only initialize the vundle stuff if it is installed
+if filereadable(s:vundle_readme)
+
+    exe "set rtp+=" . s:vundle_path
+    call vundle#begin()
+
+    " let Vunlde manage Vundle, required!
+    Plugin 'VundleVim/Vundle.vim'
+
+    " add your plugins here...
+    Plugin 'SuperTab'
+    Plugin 'vim-airline/vim-airline'
+    Plugin 'airblade/vim-gitgutter'
+    Plugin 'hashivim/vim-vagrant'
+    Plugin 'tpope/vim-fugitive'
+    Plugin 'tpope/vim-surround'
+
+    " Python plugins
+    Plugin 'hynek/vim-python-pep8-indent'
+    Plugin 'nvie/vim-flake8'
+    Plugin 'davidhalter/jedi-vim'
+    Plugin 'tmhedberg/simpylfold'
+
+    " end plugns here
+    call vundle#end()
+
+    " vim-airline settings {{{
+    set laststatus=2
+    " Enable the list of buffers
+    let g:airline#extensions#tabline#enabled = 1
+    " Show just the filename
+    let g:airline#extensions#tabline#fnamemod = ':t'
+    " }}}
+    " flake8 settings {{{
+    let g:flake8_show_in_gutter=1
+    " }}}
+    " jedi-vim settings {{{
+    let g:jedi#force_py_version=3 
+    " }}}
+endif
+" }}}
 " Enable file type detection. {{{
 " Use the default filetype settings, so that mail gets 'tw' set to 72,
 " 'cindent' is on in C files, etc.
@@ -40,67 +93,6 @@ set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set expandtab
-" }}}
-" Set OS specific paths {{{
-" }}}
-"Vundle - the vim plugin bundler {{{
-filetype off " required by vundle
-
-if has("win32") || has("win16")
-    let s:vim_path = expand("~/vimfiles")
-else
-    let s:vim_path = expand("~/.vim")
-endif
-let s:vundle_path = s:vim_path . "/bundle/Vundle.vim"
-let s:vundle_readme = expand(s:vundle_path . "/README.md")
-
-" Only initialize the vundle stuff if it is installed
-if filereadable(s:vundle_readme)
-
-    exe "set rtp+=" . s:vundle_path
-    call vundle#begin()
-
-    " let Vunlde manage Vundle, required!
-    Plugin 'VundleVim/Vundle.vim'
-
-    " add your plugins here...
-    Plugin 'SuperTab'
-    Plugin 'vim-airline/vim-airline'
-    Plugin 'airblade/vim-gitgutter'
-    Plugin 'hashivim/vim-vagrant'
-    Plugin 'tpope/vim-fugitive'
-    Plugin 'tpope/vim-sorround'
-
-    " Python plugins
-    Plugin 'hynek/vim-python-pep8-indent'
-    Plugin 'nvie/vim-flake8'
-    Plugin 'davidhalter/jedi-vim'
-    Plugin 'tmhedberg/simpylfold'
-
-    " end plugns here
-    call vundle#end()
-
-    " SuperTab settings {{{
-    " WTF! Not sure why, but when this line below is enabled, pressing tab
-    " inserts the word context and does not tab-complete the current word.
-    " Everywhere I see this being set for tab completion to work and yet that
-    " is not my experience. For now I have just commented it out.
-    "let g:SuperTabDefaultCompletionType = "context"
-    " }}}
-    " vim-airline settings {{{
-    set laststatus=2
-    " Enable the list of buffers
-    let g:airline#extensions#tabline#enabled = 1
-    " Show just the filename
-    let g:airline#extensions#tabline#fnamemod = ':t'
-    " }}}
-    " flake8 settings {{{
-    let g:flake8_show_in_gutter=1
-    " }}}
-    " jedi-vim settings {{{
-    let g:jedi#force_py_version=3 
-    " }}}
-endif
 " }}}
 " Configure autocomands {{{
 " Only do this part when compiled with support for autocommands.
