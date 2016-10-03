@@ -136,6 +136,7 @@ if has("gui_running")
     " }}}
 else
     " CUI Settings {{{
+    colorscheme darkblue
     highlight Pmenu ctermbg=blue ctermfg=white
     highlight PmenuSel ctermbg=darkblue ctermfg=white
     let g:airline_left_sep=''   " airline left seperator
