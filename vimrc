@@ -123,7 +123,7 @@ if has("gui_running")
         set guifont=-*-courier-medium-r-normal-*-*-180-*-*-m-*-*
 
     else
-        set guifont=Menlo\ for\ Powerline
+        set guifont=Menlo\ for\ Powerline:h14
 
     endif
 
