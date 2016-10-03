@@ -6,7 +6,7 @@
 "
 " OS specific paths {{{
 " check if running under windows and in a non-posix shell
-let mswin = (has('win32') || has('win64')) && &shellcmdflags =~ '/'
+let mswin = (has('win32') || has('win64')) && &shellcmdflag =~ '/'
 let vim_path = mswin ? expand("$HOME/vimfiles") : expand("$HOME/.vim")
 " }}}
 " Vundle - the vim plugin bundler {{{
