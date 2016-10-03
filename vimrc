@@ -59,13 +59,11 @@ if filereadable(s:vundle_readme)
     " }}}
 endif
 " }}}
-" Enable file type detection. {{{
+" Editor settings {{{
 " Use the default filetype settings, so that mail gets 'tw' set to 72,
 " 'cindent' is on in C files, etc.
 " Also load indent files, to automatically do language-dependent indenting.
 filetype plugin indent on
-" }}}
-" Editor settings {{{
 set nocompatible    " be iMproved, required by vundle
 set encoding=utf-8  " handle unicode files
 set backspace=indent,eol,start " allow backspacing over everything in insert mode
@@ -79,7 +77,8 @@ set showmatch       " Set viewing matched braces, brackets and parens
 set omnifunc=syntaxcomplete#Complete    " omni complete all
 set completeopt=menuone,longest,preview
 " }}}
-" Line number - relative numbers with current line number {{{
+" Show line numbers {{{
+" - relative numbers with current line number 
 set number          " display line numbers
 set relativenumber  " display relative number from current line
 " }}}
@@ -167,8 +166,8 @@ let mapleader=","
 nnoremap <leader>l :set list!<CR>
 set listchars=tab:▸\ ,eol:¬
 " }}}
-" remap - <leader>n turn on/off line number {{{ " http://dancingpenguinsoflight.com/2009/02/python-and-vim-make-your-own-ide/
-" <leader>n to toggle line number on off
+" remap - <leader>n turn on/off line number {{{ 
+" http://dancingpenguinsoflight.com/2009/02/python-and-vim-make-your-own-ide/
 nnoremap <leader>n :set nonumber!<CR>:set foldcolumn=0<CR>
 " }}}
 " remap - <leader>v/V to edit/reload vimrc {{{
