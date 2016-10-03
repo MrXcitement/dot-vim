@@ -130,23 +130,20 @@ endif " has("autocmd")
 " UI Settings, fonts, colors, etc. {{{
 if has("gui_running")
     " GUI Settings {{{
-    if has("gui_gtk2")
+    if has("gui_gtk")
         set guifont=Bitstream\ Vera\ Sans\ Mono\ 10
+    elseif has("gui_win32")
+        set guifont=Consolas:h10
+    elseif has('gui_mac') || has('gui_macvim')
+        set guifont=Menlo\ for\ Powerline:h12
+        let g:airline_powerline_fonts = 1
     elseif has("x11")
         set guifont=-*-courier-medium-r-normal-*-*-180-*-*-m-*-*
-    elseif has("win32")
-        set guifont=Consolas:h10
-    else
-        set guifont=Menlo\ for\ Powerline:h14
-        let g:airline_powerline_fonts = 1
     endif
 
     "" Disable the toolbar in gui windows...
     set guioptions-=T
 
-    "" Set the colorscheme
-    "colorscheme solarized
-    "highlight Pmenu guibg=grey gui=bold
     " }}}
 else
     " CUI Settings {{{
@@ -170,8 +167,7 @@ let mapleader=","
 nnoremap <leader>l :set list!<CR>
 set listchars=tab:▸\ ,eol:¬
 " }}}
-" remap - <leader>n turn on/off line number {{{
-" http://dancingpenguinsoflight.com/2009/02/python-and-vim-make-your-own-ide/
+" remap - <leader>n turn on/off line number {{{ " http://dancingpenguinsoflight.com/2009/02/python-and-vim-make-your-own-ide/
 " <leader>n to toggle line number on off
 nnoremap <leader>n :set nonumber!<CR>:set foldcolumn=0<CR>
 " }}}
