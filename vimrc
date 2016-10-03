@@ -5,21 +5,20 @@
 " Mike Barker <mike@thebarkers.com>
 "
 " OS specific paths {{{
-if has("win32") || has("win16")
-    let s:vim_path = expand("~/vimfiles")
-else
-    let s:vim_path = expand("~/.vim")
-endif
+" check if running under windows and in a non-posix shell
+let mswin = (has('win32') || has('win64')) && &shellcmdflags =~ '/'
+let vim_path = mswin ? expand("$HOME/vimfiles") : expand("$HOME/.vim")
 " }}}
 " Vundle - the vim plugin bundler {{{
-filetype off " required by vundle
-let s:vundle_path = s:vim_path . "/bundle/Vundle.vim"
-let s:vundle_readme = expand(s:vundle_path . "/README.md")
+filetype on     " do this to keep turning filetype off from crashing apple's vim
+filetype off    " required by vundle
+let vundle_path = vim_path . "/bundle/Vundle.vim"
+let vundle_readme = expand(vundle_path . "/README.md")
 
 " Only initialize the vundle stuff if it is installed
-if filereadable(s:vundle_readme)
+if filereadable(vundle_readme)
 
-    exe "set rtp+=" . s:vundle_path
+    exe "set rtp+=" . vundle_path
     call vundle#begin()
 
     " let Vunlde manage Vundle, required!
@@ -150,19 +149,12 @@ if has("gui_running")
     set guioptions-=T
 
     "" Keep gui colorscheme seperate from cui/term colorscheme
-    if exists('g:colorscheme_manager_file')
-        let g:colorscheme_manager_file = xolox#misc#os#is_win() ?
-                    \ '~/vimfiles/.gcolorscheme' :
-                    \ '~/.vim/.gcolorscheme'
-    endif
+    let g:colorscheme_manager_file = vim_path . '/.gcolorscheme'
     " }}}
 else
     " CUI Settings {{{
-    colorscheme darkblue
     highlight Pmenu ctermbg=blue ctermfg=white
     highlight PmenuSel ctermbg=darkblue ctermfg=white
-    let g:airline_left_sep=''   " airline left seperator
-    let g:airline_right_sep=''  " airline right seperator
     " }}}
 endif
 syntax enable
