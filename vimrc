@@ -149,6 +149,12 @@ if has("gui_running")
     "" Disable the toolbar in gui windows...
     set guioptions-=T
 
+    "" Keep gui colorscheme seperate from cui/term colorscheme
+    if exists('g:colorscheme_manager_file')
+        let g:colorscheme_manager_file = xolox#misc#os#is_win() ?
+                    \ '~/vimfiles/.gcolorscheme' :
+                    \ '~/.vim/.gcolorscheme'
+    endif
     " }}}
 else
     " CUI Settings {{{
