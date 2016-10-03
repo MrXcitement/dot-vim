@@ -64,15 +64,28 @@ if filereadable(s:vundle_readme)
 
     " add your plugins here...
     Plugin 'SuperTab'
-    Plugin 'tpope/vim-fugitive'
     Plugin 'vim-airline/vim-airline'
     Plugin 'airblade/vim-gitgutter'
     Plugin 'hashivim/vim-vagrant'
-    Plugin 'vim-scripts/indentpython.vim'
+    Plugin 'tpope/vim-fugitive'
+    Plugin 'tpope/vim-sorround'
+
+    " Python plugins
+    Plugin 'hynek/vim-python-pep8-indent'
+    Plugin 'nvie/vim-flake8'
+    Plugin 'davidhalter/jedi-vim'
+    Plugin 'tmhedberg/simpylfold'
 
     " end plugns here
     call vundle#end()
 
+    " SuperTab settings {{{
+    " WTF! Not sure why, but when this line below is enabled, pressing tab
+    " inserts the word context and does not tab-complete the current word.
+    " Everywhere I see this being set for tab completion to work and yet that
+    " is not my experience. For now I have just commented it out.
+    "let g:SuperTabDefaultCompletionType = "context"
+    " }}}
     " vim-airline settings {{{
     set laststatus=2
     " Enable the list of buffers
@@ -80,14 +93,12 @@ if filereadable(s:vundle_readme)
     " Show just the filename
     let g:airline#extensions#tabline#fnamemod = ':t'
     " }}}
-
-    " SuperTab settings
-    " WTF! Not sure why, but when this line below is enabled, pressing tab
-    " inserts the word context and does not tab-complete the current word.
-    " Everywhere I see this being set for tab completion to work and yet that
-    " is not my experience. For now I have just commented it out.
-    "let g:SuperTabDefaultCompletionType = "context"
-
+    " flake8 settings {{{
+    let g:flake8_show_in_gutter=1
+    " }}}
+    " jedi-vim settings {{{
+    let g:jedi#force_py_version=3 
+    " }}}
 endif
 " }}}
 " Configure autocomands {{{
@@ -101,6 +112,7 @@ if has("autocmd")
     " For all text files set 'textwidth' to 78 characters.
     autocmd FileType text setlocal textwidth=78
 
+    " jump to last known position {{{
     " When editing a file, always jump to the last known cursor position.
     " Don't do it when the position is invalid or when inside an event handler
     " (happens when dropping a file on gvim).
@@ -108,7 +120,15 @@ if has("autocmd")
         \ if line("'\"") > 0 && line("'\"") <= line("$") |
         \   exe "normal g`\"" |
         \ endif
-
+    "}}}
+    " python flake8 setup {{{
+    autocmd FileType python nnoremap <buffer> <leader>f :call Flake8()<cr>
+    autocmd BufWritePost *.py cal Flake8()
+    " }}}
+    " SimplyFold setup {{{
+    autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
+    autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
+    " }}}
     augroup END     " end of vimrcEx augroup
 endif " has("autocmd")
 " }}}
