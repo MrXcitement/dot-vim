@@ -135,7 +135,7 @@ endif " has("autocmd")
 if has("gui_running")
     " GUI Settings {{{
     if has("gui_gtk")
-        set guifont=Bitstream\ Vera\ Sans\ Mono\ 10
+        set guifont=DejaVu\ Sans\ Mono\ 10
     elseif has("gui_win32")
         set guifont=Consolas:h10
     elseif has('gui_mac') || has('gui_macvim')
