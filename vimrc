@@ -34,7 +34,7 @@ if filereadable(s:vundle_readme)
     Plugin 'tpope/vim-surround'
     Plugin 'xolox/vim-misc'
     Plugin 'xolox/vim-colorscheme-switcher'
-    Plugin 'Taverius/vim-colorscheme-manager'
+    Plugin 'MrXcitement/vim-colorscheme-manager'
 
     " Python plugins
     Plugin 'hynek/vim-python-pep8-indent'
