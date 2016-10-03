@@ -32,6 +32,8 @@ if filereadable(s:vundle_readme)
     Plugin 'hashivim/vim-vagrant'
     Plugin 'tpope/vim-fugitive'
     Plugin 'tpope/vim-surround'
+    Plugin 'xolox/vim-misc'
+    Plugin 'xolox/vim-colorscheme-switcher'
 
     " Python plugins
     Plugin 'hynek/vim-python-pep8-indent'
@@ -133,7 +135,7 @@ if has("gui_running")
     elseif has("x11")
         set guifont=-*-courier-medium-r-normal-*-*-180-*-*-m-*-*
     elseif has("win32")
-        set guifont=Consolas:h12
+        set guifont=Consolas:h10
     else
         set guifont=Menlo\ for\ Powerline:h14
         let g:airline_powerline_fonts = 1
