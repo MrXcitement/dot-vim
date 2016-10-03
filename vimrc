@@ -34,6 +34,7 @@ if filereadable(s:vundle_readme)
     Plugin 'tpope/vim-surround'
     Plugin 'xolox/vim-misc'
     Plugin 'xolox/vim-colorscheme-switcher'
+    Plugin 'Taverius/vim-colorscheme-manager'
 
     " Python plugins
     Plugin 'hynek/vim-python-pep8-indent'
@@ -56,6 +57,11 @@ if filereadable(s:vundle_readme)
     " }}}
     " jedi-vim settings {{{
     let g:jedi#force_py_version=3 
+    " }}}
+    " vim-colorscheme-manager settings {{{
+    if !exists('g:colorscheme_switcher_exclude')
+        let g:colorscheme_switcher_exclude = []
+    endif
     " }}}
 endif
 " }}}
