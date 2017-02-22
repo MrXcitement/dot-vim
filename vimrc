@@ -24,26 +24,44 @@ if filereadable(vundle_readme)
     " let Vunlde manage Vundle, required!
     Plugin 'VundleVim/Vundle.vim'
 
-    " add your plugins here...
-    Plugin 'SuperTab'
-    Plugin 'vim-airline/vim-airline'
-    Plugin 'airblade/vim-gitgutter'
-    Plugin 'hashivim/vim-vagrant'
+    " General plugins...
     Plugin 'tpope/vim-fugitive'
     Plugin 'tpope/vim-surround'
+
+    " UI plugins...
+    Plugin 'vim-airline/vim-airline'
+    Plugin 'airblade/vim-gitgutter'
     Plugin 'xolox/vim-misc'
     Plugin 'xolox/vim-colorscheme-switcher'
     Plugin 'MrXcitement/vim-colorscheme-manager'
+    
+    " DevOps plugins...
+    Plugin 'hashivim/vim-vagrant'
+    Plugin 'pearofducks/ansible-vim'
+
+    " Completion plugins
+    "Plugin 'Valloric/YouCompleteMe'
+    Plugin 'SuperTab'
 
     " Python plugins
-    Plugin 'hynek/vim-python-pep8-indent'
-    Plugin 'nvie/vim-flake8'
-    Plugin 'davidhalter/jedi-vim'
-    Plugin 'tmhedberg/simpylfold'
+    "Plugin 'hynek/vim-python-pep8-indent'
+    "Plugin 'nvie/vim-flake8'
+    "Plugin 'tmhedberg/simpylfold'
+    "Plugin 'lambdalisue/vim-pyenv'
+    "Plugin 'davidhalter/jedi-vim'
+
+    " Rust plugins
+    Plugin 'rust-lang/rust.vim'
+    Plugin 'racer-rust/vim-racer'
 
     " end plugns here
     call vundle#end()
 
+    " ycm setup {{{
+    "let g:ycm_server_python_interpreter = '/Users/mike/.pyenv/versions/2.7.11/bin/python'
+    "let g:ycm_python_binary_path='python'
+    "let g:ycm_rust_src_path = expand("$HOME/src/rust/src")
+    " }}}
     " vim-airline settings {{{
     set laststatus=2
     " Enable the list of buffers
@@ -51,16 +69,25 @@ if filereadable(vundle_readme)
     " Show just the filename
     let g:airline#extensions#tabline#fnamemod = ':t'
     " }}}
-    " flake8 settings {{{
-    let g:flake8_show_in_gutter=1
-    " }}}
-    " jedi-vim settings {{{
-    let g:jedi#force_py_version=3 
-    " }}}
     " vim-colorscheme-manager settings {{{
     if !exists('g:colorscheme_switcher_exclude')
         let g:colorscheme_switcher_exclude = []
     endif
+    " }}}
+    " python settings {{{
+    "let g:flake8_show_in_gutter=1
+    "let g:jedi#force_py_version=3 
+    "if jedi#init_python()
+    "    function! s:jedi_auto_force_py_version() abort
+    "        let major_version = pyenv#python#get_internal_major_version()
+    "        call jedi#force_py_version(major_version)
+    "    endfunction
+    "    augroup vim-pyenv-custom-augroup
+    "        autocmd! *
+    "        autocmd User vim-pyenv-activate-post   call s:jedi_auto_force_py_version()
+    "        autocmd User vim-pyenv-deactivate-post call s:jedi_auto_force_py_version()
+    "    augroup END
+    "endif
     " }}}
 endif
 " }}}
@@ -181,11 +208,20 @@ nnoremap <leader>n :set nonumber!<CR>:set foldcolumn=0<CR>
 nnoremap <silent> <leader>v :e $MYVIMRC<CR>
 nnoremap <silent> <leader>V :source $MYVIMRC<CR>:filetype detect<CR>:exe ":echo 'reloaded $MYVIMRC...'"<CR>
 " }}}
+" remap - <leader>c toggle cursorline and cursorcolum {{{
+nnoremap <Leader>c :set cursorline! cursorcolumn!<CR>
+" }}}
 " remap - window movement shortcuts {{{
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-H> <C-W><C-H>
 nnoremap <C-L> <C-W><C-L>
+" }}}
+" remap - remove arrow key mapping {{{
+noremap <Up> <nop>
+noremap <Down> <nop>
+noremap <Left> <nop>
+noremap <Right> <nop>
 " }}}
 " Function OpenURI {{{
 " Open a web-browser with the URL in the current line
