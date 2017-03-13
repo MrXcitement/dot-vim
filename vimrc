@@ -11,30 +11,34 @@ let vim_path = mswin ? expand("$HOME/vimfiles") : expand("$HOME/.vim")
 " }}}
 " Vundle - the vim plugin bundler {{{
 filetype on     " do this to keep turning filetype off from crashing apple's vim
-filetype off    " required by vundle
+filetype off    " required by Vundle
 let vundle_path = vim_path . "/bundle/Vundle.vim"
 let vundle_readme = expand(vundle_path . "/README.md")
 
-" Only initialize the vundle stuff if it is installed
+" Only initialize the Vundle stuff if it is installed
 if filereadable(vundle_readme)
 
     exe "set rtp+=" . vundle_path
     call vundle#begin()
 
-    " let Vunlde manage Vundle, required!
+    " let Vundle manage Vundle, required!
     Plugin 'VundleVim/Vundle.vim'
 
     " General plugins...
-    Plugin 'tpope/vim-fugitive'
     Plugin 'tpope/vim-surround'
 
     " UI plugins...
     Plugin 'vim-airline/vim-airline'
-    Plugin 'airblade/vim-gitgutter'
     Plugin 'xolox/vim-misc'
     Plugin 'xolox/vim-colorscheme-switcher'
     Plugin 'MrXcitement/vim-colorscheme-manager'
     
+    " Git/Gist support
+    Plugin 'airblade/vim-gitgutter'
+    Plugin 'tpope/vim-fugitive'
+    Plugin 'mattn/webapi-vim'
+    Plugin 'mattn/gist-vim'
+
     " DevOps plugins...
     Plugin 'hashivim/vim-vagrant'
     Plugin 'pearofducks/ansible-vim'
@@ -104,6 +108,10 @@ set ruler           " show the cursor position all the time
 set showcmd         " display incomplete commands
 set nowrap          " Whitespace
 set showmatch       " Set viewing matched braces, brackets and parens
+" }}}
+" Spelling settings {{{
+set spelllang=en
+set spellfile=$HOME/Dropbox/apps/vim/spell/en.utf-8.add
 " }}}
 " Completion {{{
 set omnifunc=syntaxcomplete#Complete    " omni complete all
@@ -188,6 +196,9 @@ syntax enable
 " }}}
 " Change <leader> from \ to , {{{
 let mapleader=","
+" }}}
+" nnoremap - <leader>s toggle spell checking on and off {{{
+nnoremap <silent> <leader>s :set spell!<CR>
 " }}}
 " remap - <leader>l toggles viewing whitespace {{{
 " http://vimcasts.org/episodes/show-invisibles/
