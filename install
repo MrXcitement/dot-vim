@@ -13,30 +13,32 @@
 
 # Create a symbolic link, backing up any files that exist
 link() {
-	local src=$1
-	local dst=$2
-	echo "Linking ${dst} to ${src} ..."
-	if [ -a ${dst} ]; then
-		if ! [ -h ${dst} ]; then
-			echo "Backing up ${dst} to ${dst}.backup"
-			mv ${dst} ${dst}.backup
-		fi
-	fi
-	ln -fsvn ${src} ${dst}
+    local src=$1
+    local dst=$2
+    if [ -a ${dst} ]; then
+        if ! [ -h ${dst} ]; then
+            echo "Backing up ${dst} to ${dst}.backup"
+            mv ${dst} ${dst}.backup
+        fi
+    fi
+    if ! [ -a ${dst} ]; then
+        echo "Linking file ${dst}"
+        ln -sv ${src} ${dst}
+    fi
 }
 
 # Get the current working directory
 CWD="$(cd "$(dirname "$0")" && pwd)"
+pushd ${CWD} > /dev/null
 
 # Link the vim configuration files and dir
-echo "Make sympolic links in the users home directory to the vim config files and directories"
 link ${CWD}/vimrc ${HOME}/.vimrc
 link ${CWD}/vim ${HOME}/.vim
 
-# Clone the Vundle plugin manager
-echo "Git clone the Vundle plugin manager..."
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-
-# Install the plugins
-echo "Install the defined plugins..."
-vim +PluginInstall +qall
+# Clone the Vundle plugin manager and install plugins
+if ! [ -a ~/.vim/bundle/Vundle.vim ]; then
+    git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+    echo "Install the defined plugins..."
+    vim +PluginInstall +qall
+fi
+popd > /dev/null
