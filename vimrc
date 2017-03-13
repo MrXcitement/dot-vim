@@ -48,11 +48,11 @@ if filereadable(vundle_readme)
     Plugin 'SuperTab'
 
     " Python plugins
-    "Plugin 'hynek/vim-python-pep8-indent'
-    "Plugin 'nvie/vim-flake8'
-    "Plugin 'tmhedberg/simpylfold'
-    "Plugin 'lambdalisue/vim-pyenv'
-    "Plugin 'davidhalter/jedi-vim'
+    Plugin 'hynek/vim-python-pep8-indent'
+    Plugin 'nvie/vim-flake8'
+    Plugin 'tmhedberg/simpylfold'
+    Plugin 'lambdalisue/vim-pyenv'
+    Plugin 'davidhalter/jedi-vim'
 
     " Rust plugins
     Plugin 'rust-lang/rust.vim'
