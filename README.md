@@ -1,4 +1,4 @@
-# My vimrc setup
+# Personal Vim setup
 
 This is my personal vim configuration.
 
@@ -8,13 +8,13 @@ http://github.com/gmarik/vundle
 My .vimrc automaticly installs vundle if it is not allready installed. I am using code from here:
 http://erikzaadi.com/2012/03/19/auto-installing-vundle-from-your-vimrc
 
-To install the configuration files, do the following:
+To use this configuration, do the following:
 
 ## Clone
-Clone the vimrc repo to a local directory.
+Clone the dot-vim repo to a local directory.
 
 ```
-git clone git://github.com/mrxcitement/vimrc.git ~/git/vimrc
+git clone git://github.com/mrxcitement/dot-vim.git ~/git/dot-vim
 ```
 
 ## Install
@@ -23,7 +23,7 @@ Switch to the local repo directory and run the install.sh script.
 The install script will create symlinks in your home directory and then fetch the associated submodules from git.
 
 ```
-cd ~/git/vimrc
+cd ~/git/dot-vim
 ./install.sh
 ```
 
