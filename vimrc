@@ -13,10 +13,14 @@ let vim_path = mswin ? expand("$HOME/vimfiles") : expand("$HOME/.vim")
 filetype on     " do this to keep turning filetype off from crashing apple's vim
 filetype off    " required by Vundle
 let vundle_path = vim_path . "/bundle/Vundle.vim"
-let vundle_readme = expand(vundle_path . "/README.md")
 
-" Only initialize the Vundle stuff if it is installed
-if filereadable(vundle_readme)
+" Check if Vundle is missing
+if !isdirectory(vundle_path)
+    echoerr 'Vundle is not installed! Use the install script, or clone it.'
+    echoerr '$ git clone https://github.com/VundleVim/Vundle.vim ' . vundle_path
+
+else
+    " Only initialize the Vundle stuff if it is installed
 
     exe "set rtp+=" . vundle_path
     call vundle#begin()
@@ -166,14 +170,14 @@ if has("autocmd")
 endif " has("autocmd")
 " }}}
 " Shell configuration {{{
-if mswin
-    set shell=powershell
-    set shellcmdflag=-c
-    set shellquote=\"
-    set shellxquote=
-    set shellpipe=|
-    set shellredir=>
-endif
+" if mswin
+"     set shell=powershell
+"     set shellcmdflag=-c
+"     set shellquote=\"
+"     set shellxquote=
+"     set shellpipe=|
+"     set shellredir=>
+" endif
 "}}}
 " UI Settings, fonts, colors, etc. {{{
 if has("gui_running")
