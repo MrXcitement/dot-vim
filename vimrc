@@ -60,12 +60,6 @@ else
     Plugin 'xolox/vim-colorscheme-switcher'
     Plugin 'MrXcitement/vim-colorscheme-manager'
     
-    " Git/Gist support
-    Plugin 'airblade/vim-gitgutter'
-    Plugin 'tpope/vim-fugitive'
-    Plugin 'mattn/webapi-vim'
-    Plugin 'mattn/gist-vim'
-
     " DevOps plugins...
     Plugin 'hashivim/vim-vagrant'
     Plugin 'pearofducks/ansible-vim'
@@ -74,20 +68,36 @@ else
     "Plugin 'Valloric/YouCompleteMe'
     Plugin 'SuperTab'
 
+    " Git/Gist support
+    if executable('git')
+        Plugin 'airblade/vim-gitgutter'
+        Plugin 'tpope/vim-fugitive'
+    endif
+    Plugin 'mattn/webapi-vim'
+    Plugin 'mattn/gist-vim'
+
     " Python plugins
-    Plugin 'hynek/vim-python-pep8-indent'
-    Plugin 'nvie/vim-flake8'
-    Plugin 'tmhedberg/simpylfold'
-    Plugin 'lambdalisue/vim-pyenv'
-    Plugin 'davidhalter/jedi-vim'
-    Plugin 'alfredodeza/pytest.vim'
+    if executable('python') || executable('python2') || executable('python3')
+        Plugin 'hynek/vim-python-pep8-indent'
+        Plugin 'nvie/vim-flake8'
+        Plugin 'tmhedberg/simpylfold'
+        Plugin 'davidhalter/jedi-vim'
+        Plugin 'alfredodeza/pytest.vim'
+        if IsMac() 
+            Plugin 'lambdalisue/vim-pyenv'
+        endif
+    endif
 
     " Rust plugins
-    Plugin 'rust-lang/rust.vim'
-    Plugin 'racer-rust/vim-racer'
+    if executable('rust')
+        Plugin 'rust-lang/rust.vim'
+        Plugin 'racer-rust/vim-racer'
+    endif
 
     " Ruby plugins
-    Plugin 'vim-ruby/vim-ruby'
+    if executable('ruby')
+        Plugin 'vim-ruby/vim-ruby'
+    endif
 
     " end plugns here
     call vundle#end()
