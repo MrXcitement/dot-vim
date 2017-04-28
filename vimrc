@@ -89,7 +89,7 @@ else
     endif
 
     " Rust plugins
-    if executable('rust')
+    if executable('rustc')
         Plugin 'rust-lang/rust.vim'
         Plugin 'racer-rust/vim-racer'
     endif
@@ -323,9 +323,3 @@ endfunction
 nnoremap <Leader>w :call OpenURI()<CR>
 nnoremap <leader>W :update<CR>:call OpenFile(expand('%:p'))<CR>
 " }}}
-" host: eeyore setup {{{
-" let hostname = substitute(system('hostname'), '\n', '', '')
-" if hostname == "eeyore" 
-"     set pythonthreedll=c:\python3\python35.dll
-" endif
-"}}}
