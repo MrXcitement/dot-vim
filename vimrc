@@ -76,6 +76,9 @@ else
     Plugin 'mattn/webapi-vim'
     Plugin 'mattn/gist-vim'
 
+    " Powershell support
+    Plugin 'PProvost/vim-ps1'
+
     " Python plugins
     if executable('python') || executable('python2') || executable('python3')
         Plugin 'hynek/vim-python-pep8-indent'
@@ -201,16 +204,6 @@ if has("autocmd")
     augroup END     " end of vimrcEx augroup
 endif " has("autocmd")
 " }}}
-" Shell configuration {{{
-if IsWin()
-    set shell=powershell
-    set shellcmdflag=-c
-    set shellquote=\"
-    set shellxquote=
-    set shellpipe=|
-    set shellredir=>
-endif
-"}}}
 " UI Settings, fonts, colors, etc. {{{
 if has("gui_running")
     " GUI Settings {{{
