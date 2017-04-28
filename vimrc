@@ -53,10 +53,14 @@ if filereadable(vundle_readme)
     Plugin 'tmhedberg/simpylfold'
     Plugin 'lambdalisue/vim-pyenv'
     Plugin 'davidhalter/jedi-vim'
+    Plugin 'alfredodeza/pytest.vim'
 
     " Rust plugins
     Plugin 'rust-lang/rust.vim'
     Plugin 'racer-rust/vim-racer'
+
+    " Ruby plugins
+    Plugin 'vim-ruby/vim-ruby'
 
     " end plugns here
     call vundle#end()
@@ -79,7 +83,14 @@ if filereadable(vundle_readme)
     endif
     " }}}
     " python settings {{{
-    "let g:flake8_show_in_gutter=1
+    " let g:flake8_show_in_gutter=1
+    autocmd FileType python nnoremap <buffer> <leader>f  :call Flake8()<CR>
+    autocmd FileType python nnoremap <buffer> <leader>tf :Pytest file<CR>
+    autocmd FileType python nnoremap <buffer> <leader>tc :Pytest class<CR>
+    autocmd FileType python nnoremap <buffer> <leader>tm :Pytest method<CR>
+    autocmd FileType python nnoremap <buffer> <leader>td :Pytest function<CR>
+    autocmd FileType python nnoremap <buffer> <leader>ts :Pytest session<CR>
+    " autocmd BufWritePost *.py call Flake8()
     "let g:jedi#force_py_version=3 
     "if jedi#init_python()
     "    function! s:jedi_auto_force_py_version() abort
@@ -155,14 +166,6 @@ if has("autocmd")
         \   exe "normal g`\"" |
         \ endif
     "}}}
-    " python flake8 setup {{{
-    autocmd FileType python nnoremap <buffer> <leader>f :call Flake8()<cr>
-    autocmd BufWritePost *.py cal Flake8()
-    " }}}
-    " SimplyFold setup {{{
-    autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
-    autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
-    " }}}
     augroup END     " end of vimrcEx augroup
 endif " has("autocmd")
 " }}}
@@ -217,7 +220,7 @@ nnoremap <leader>n :set nonumber!<CR>:set foldcolumn=0<CR>
 " <leader>v brings up my .vimrc
 " <leader>V reloads it -- making all changes active (have to save first)
 nnoremap <silent> <leader>v :e $MYVIMRC<CR>
-nnoremap <silent> <leader>V :source $MYVIMRC<CR>:filetype detect<CR>:exe ":echo 'reloaded $MYVIMRC...'"<CR>
+nnoremap <silent> <leader>V :source $MYVIMRC<CR>:filetype detect<CR>:exe ":echo 'reloaded' $MYVIMRC"<CR>
 " }}}
 " remap - <leader>c toggle cursorline and cursorcolum {{{
 nnoremap <Leader>c :set cursorline! cursorcolumn!<CR>
