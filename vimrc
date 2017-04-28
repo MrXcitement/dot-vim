@@ -202,14 +202,14 @@ if has("autocmd")
 endif " has("autocmd")
 " }}}
 " Shell configuration {{{
-" if mswin
-"     set shell=powershell
-"     set shellcmdflag=-c
-"     set shellquote=\"
-"     set shellxquote=
-"     set shellpipe=|
-"     set shellredir=>
-" endif
+if IsWin()
+    set shell=powershell
+    set shellcmdflag=-c
+    set shellquote=\"
+    set shellxquote=
+    set shellpipe=|
+    set shellredir=>
+endif
 "}}}
 " UI Settings, fonts, colors, etc. {{{
 if has("gui_running")
