@@ -4,14 +4,36 @@
 "
 " Mike Barker <mike@thebarkers.com>
 "
-" OS specific paths {{{
-" check if running under windows and in a non-posix shell
-let mswin = (has('win32') || has('win64')) && &shellcmdflag =~ '/'
-let vim_path = mswin ? expand("$HOME/vimfiles") : expand("$HOME/.vim")
+" Get the running OS {{{
+" functions to check what os vim is running on
+function! GetRunningOS()
+    if has('win32') || has('win64') && &shellcmdflag =~ '/'
+        return 'win'
+    elseif has('unix')
+        if system('uname') =~ 'Darwin'
+            return 'mac'
+        else
+            return 'unix'
+        endif
+    else
+        return '?'
+    endif
+endfunction
+function IsWin()
+    return GetRunningOS() =~ 'win'
+endfunction
+function IsMac()
+    return GetRunningOS() =~ 'mac'
+endfunction
+function IsUnix()
+    return GetRunningOS() =~ 'unix'
+endfunction
 " }}}
 " Vundle - the vim plugin bundler {{{
 filetype on     " do this to keep turning filetype off from crashing apple's vim
 filetype off    " required by Vundle
+
+let vim_path = IsWin() ? expand("$HOME/vimfiles") : expand("$HOME/.vim")
 let vundle_path = vim_path . "/bundle/Vundle.vim"
 
 " Check if Vundle is missing
