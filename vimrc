@@ -206,7 +206,7 @@ syntax enable
 " Change <leader> from \ to , {{{
 let mapleader=","
 " }}}
-" nnoremap - <leader>s toggle spell checking on and off {{{
+" remap - <leader>s toggle spell checking on and off {{{
 nnoremap <silent> <leader>s :set spell!<CR>
 " }}}
 " remap - <leader>l toggles viewing whitespace {{{
