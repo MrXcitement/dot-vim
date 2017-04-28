@@ -26,6 +26,7 @@ if filereadable(vundle_readme)
 
     " General plugins...
     Plugin 'tpope/vim-surround'
+    Plugin 'farmergreg/vim-lastplace'
 
     " UI plugins...
     Plugin 'vim-airline/vim-airline'
@@ -146,7 +147,7 @@ set softtabstop=4
 set shiftwidth=4
 set expandtab
 " }}}
-" Configure autocomands {{{
+" Autocomands {{{
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
 
@@ -155,17 +156,12 @@ if has("autocmd")
     au!
 
     " For all text files set 'textwidth' to 78 characters.
-    autocmd FileType text setlocal textwidth=78
-
-    " jump to last known position {{{
-    " When editing a file, always jump to the last known cursor position.
-    " Don't do it when the position is invalid or when inside an event handler
-    " (happens when dropping a file on gvim).
-    autocmd BufReadPost *
-        \ if line("'\"") > 0 && line("'\"") <= line("$") |
-        \   exe "normal g`\"" |
-        \ endif
-    "}}}
+    " autocmd FileType text setlocal textwidth=78
+    
+    " highlight lines that are longer than the textwidth
+    autocmd BufEnter * highlight OverLength ctermbg=darkgrey guibg=#592929
+    autocmd BufEnter * match OverLength /\%80v.*/
+    
     augroup END     " end of vimrcEx augroup
 endif " has("autocmd")
 " }}}
