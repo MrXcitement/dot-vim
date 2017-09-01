@@ -116,6 +116,8 @@ else
     let g:airline#extensions#tabline#enabled = 1
     " Show just the filename
     let g:airline#extensions#tabline#fnamemod = ':t'
+    " Show powerline seperators
+    let g:airline_powerline_fonts = 1
     " }}}
     " vim-colorscheme-manager settings {{{
     if !exists('g:colorscheme_switcher_exclude')
@@ -212,8 +214,8 @@ if has("gui_running")
     elseif has("gui_win32")
         set guifont=Consolas:h10
     elseif has('gui_mac') || has('gui_macvim')
-        set guifont=Menlo\ for\ Powerline:h12
-        let g:airline_powerline_fonts = 1
+        set guifont=FiraCode-Regular:h12
+        set macligatures
     elseif has("x11")
         set guifont=-*-courier-medium-r-normal-*-*-180-*-*-m-*-*
     endif
