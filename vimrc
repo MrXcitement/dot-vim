@@ -65,7 +65,6 @@ else
     Plugin 'pearofducks/ansible-vim'
 
     " Completion plugins
-    "Plugin 'Valloric/YouCompleteMe'
     Plugin 'SuperTab'
 
     " Git/Gist support
@@ -86,9 +85,6 @@ else
         Plugin 'tmhedberg/simpylfold'
         Plugin 'davidhalter/jedi-vim'
         Plugin 'alfredodeza/pytest.vim'
-        if IsMac() 
-            Plugin 'lambdalisue/vim-pyenv'
-        endif
     endif
 
     " Rust plugins
@@ -105,11 +101,6 @@ else
     " end plugns here
     call vundle#end()
 
-    " ycm setup {{{
-    "let g:ycm_server_python_interpreter = '/Users/mike/.pyenv/versions/2.7.11/bin/python'
-    "let g:ycm_python_binary_path='python'
-    "let g:ycm_rust_src_path = expand("$HOME/src/rust/src")
-    " }}}
     " vim-airline settings {{{
     set laststatus=2
     " Enable the list of buffers
@@ -132,19 +123,6 @@ else
     autocmd FileType python nnoremap <buffer> <leader>tm :Pytest method<CR>
     autocmd FileType python nnoremap <buffer> <leader>td :Pytest function<CR>
     autocmd FileType python nnoremap <buffer> <leader>ts :Pytest session<CR>
-    " autocmd BufWritePost *.py call Flake8()
-    "let g:jedi#force_py_version=3 
-    "if jedi#init_python()
-    "    function! s:jedi_auto_force_py_version() abort
-    "        let major_version = pyenv#python#get_internal_major_version()
-    "        call jedi#force_py_version(major_version)
-    "    endfunction
-    "    augroup vim-pyenv-custom-augroup
-    "        autocmd! *
-    "        autocmd User vim-pyenv-activate-post   call s:jedi_auto_force_py_version()
-    "        autocmd User vim-pyenv-deactivate-post call s:jedi_auto_force_py_version()
-    "    augroup END
-    "endif
     " }}}
 endif
 " }}}
