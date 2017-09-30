@@ -4,6 +4,28 @@
 "
 " Mike Barker <mike@thebarkers.com>
 "
+" Allow vim that is built to support both python 2 and 3 to use the
+" current pyenv active version of python.
+if executable('pyenv')
+    " Check the current python and initialize vim's python to the version to
+    " that version.
+    let s:python_version = system("python -V 2>&1")
+    if s:python_version =~ 'Python\W2'
+        if has('python')
+            set pyx=2
+            py pass
+        else
+            echom "Error: vim does not have python 2 support..."
+        endif
+    else
+        if has('python3')
+            set pyx=3
+            py3 pass
+        else
+            echom "Error: vim does not have python 3 support..."
+        endif
+    endif
+endif
 " Get the running OS {{{
 " functions to check what os vim is running on
 function! GetRunningOS()
