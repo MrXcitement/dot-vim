@@ -4,6 +4,7 @@
 "
 " Mike Barker <mike@thebarkers.com>
 "
+" Initialize either Python 2 or Python 3 {{{
 " Allow vim that is built to support both python 2 and 3 to use the
 " current pyenv active version of python.
 if executable('pyenv')
@@ -26,6 +27,7 @@ if executable('pyenv')
         endif
     endif
 endif
+" }}}
 " Get the running OS {{{
 " functions to check what os vim is running on
 function! GetRunningOS()
@@ -41,13 +43,13 @@ function! GetRunningOS()
         return '?'
     endif
 endfunction
-function IsWin()
+function! IsWin()
     return GetRunningOS() =~ 'win'
 endfunction
-function IsMac()
+function! IsMac()
     return GetRunningOS() =~ 'mac'
 endfunction
-function IsUnix()
+function! IsUnix()
     return GetRunningOS() =~ 'unix'
 endfunction
 " }}}
@@ -97,6 +99,9 @@ else
     Plugin 'mattn/webapi-vim'
     Plugin 'mattn/gist-vim'
 
+    " Markdown support
+    Plugin 'nelstrom/vim-markdown-folding'
+
     " Powershell support
     Plugin 'PProvost/vim-ps1'
 
@@ -118,6 +123,11 @@ else
     " Ruby plugins
     if executable('ruby')
         Plugin 'vim-ruby/vim-ruby'
+    endif
+
+    " Swift plugins
+    if executable('swift')
+      Plugin 'keith/swift.vim'
     endif
 
     " end plugns here
