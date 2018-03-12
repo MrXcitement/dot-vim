@@ -147,6 +147,12 @@ else
         let g:colorscheme_switcher_exclude = []
     endif
     " }}}
+    " vim-gitgutter settings {{{
+    if IsWin()
+        let g:gitgutter_grep = ''
+        let g:gitgutter_async = 0
+    endif
+    " }}}
     " python settings {{{
     " let g:flake8_show_in_gutter=1
     autocmd FileType python nnoremap <buffer> <leader>f  :call Flake8()<CR>
