@@ -230,8 +230,10 @@ if has("gui_running")
     elseif has("gui_win32")
         set guifont=FiraCode-Regular:h10,Consolas:h10
     elseif has('gui_mac') || has('gui_macvim')
-        set guifont=FiraCode-Regular:h12
-        set macligatures
+        set guifont=Fura\ Code\ Regular\ Nerd\ Font\ Complete:h12,Monaco:h12
+        if &guifont ==? 'Nerd'
+            set macligatures
+        endif
     elseif has("x11")
         set guifont=-*-courier-medium-r-normal-*-*-180-*-*-m-*-*
     endif
