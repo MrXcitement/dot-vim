@@ -1,6 +1,9 @@
 # backup files
 *~
 
+# log files
+install.log
+
 # vim history files
 .netrwhist
 .vimrc.swp
