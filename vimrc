@@ -206,21 +206,21 @@ set expandtab
 " }}}
 " Autocomands {{{
 " Only do this part when compiled with support for autocommands.
-if has("autocmd")
-
-    " Put these in an autocmd group, so that we can delete them easily.
-    augroup vimrcEx
-    au!
-
-    " For all text files set 'textwidth' to 78 characters.
-    " autocmd FileType text setlocal textwidth=78
-    
-    " highlight lines that are longer than the textwidth
-    autocmd BufEnter * highlight OverLength ctermbg=darkgrey guibg=#592929
-    autocmd BufEnter * match OverLength /\%80v.*/
-    
-    augroup END     " end of vimrcEx augroup
-endif " has("autocmd")
+" if has("autocmd")
+" 
+"     " Put these in an autocmd group, so that we can delete them easily.
+"     augroup vimrcEx
+"     au!
+" 
+"     " For all text files set 'textwidth' to 78 characters.
+"     " autocmd FileType text setlocal textwidth=78
+"     
+"     " highlight lines that are longer than the textwidth
+"     autocmd BufEnter * highlight OverLength ctermbg=darkgrey guibg=#592929
+"     autocmd BufEnter * match OverLength /\%80v.*/
+"     
+"     augroup END     " end of vimrcEx augroup
+" endif " has("autocmd")
 " }}}
 " UI Settings, fonts, colors, etc. {{{
 if has("gui_running")
