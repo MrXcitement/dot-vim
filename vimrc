@@ -53,6 +53,7 @@ else
     " General plugins...
     Plugin 'tpope/vim-surround'
     Plugin 'farmergreg/vim-lastplace'
+    Plugin 'editorconfig/editorconfig-vim'
 
     " UI plugins...
     Plugin 'vim-airline/vim-airline'
@@ -82,12 +83,13 @@ else
     Plugin 'PProvost/vim-ps1'
 
     " Python plugins
-    if executable('python') || executable('python2') || executable('python3')
-        Plugin 'hynek/vim-python-pep8-indent'
-        Plugin 'nvie/vim-flake8'
-        Plugin 'tmhedberg/simpylfold'
-        Plugin 'davidhalter/jedi-vim'
-        Plugin 'alfredodeza/pytest.vim'
+    if executable('python') || executable('python3')
+        " Plugin 'hynek/vim-python-pep8-indent'
+        " Plugin 'nvie/vim-flake8'
+        " Plugin 'tmhedberg/simpylfold'
+        " Plugin 'davidhalter/jedi-vim'
+        " Plugin 'alfredodeza/pytest.vim'
+        Plugin 'klen/python-mode'
     endif
 
     " Rust plugins
@@ -100,6 +102,9 @@ else
     if executable('ruby')
         Plugin 'vim-ruby/vim-ruby'
     endif
+
+    " Syntax plugins
+    Plugin 'scrooloose/syntastic'
 
     " Swift plugins
     if executable('swift')
@@ -131,12 +136,25 @@ else
     " }}}
     " python settings {{{
     " let g:flake8_show_in_gutter=1
-    autocmd FileType python nnoremap <buffer> <leader>f  :call Flake8()<CR>
-    autocmd FileType python nnoremap <buffer> <leader>tf :Pytest file<CR>
-    autocmd FileType python nnoremap <buffer> <leader>tc :Pytest class<CR>
-    autocmd FileType python nnoremap <buffer> <leader>tm :Pytest method<CR>
-    autocmd FileType python nnoremap <buffer> <leader>td :Pytest function<CR>
-    autocmd FileType python nnoremap <buffer> <leader>ts :Pytest session<CR>
+    " autocmd FileType python nnoremap <buffer> <leader>f  :call Flake8()<CR>
+    " autocmd FileType python nnoremap <buffer> <leader>tf :Pytest file<CR>
+    " autocmd FileType python nnoremap <buffer> <leader>tc :Pytest class<CR>
+    " autocmd FileType python nnoremap <buffer> <leader>tm :Pytest method<CR>
+    " autocmd FileType python nnoremap <buffer> <leader>td :Pytest function<CR>
+    " autocmd FileType python nnoremap <buffer> <leader>ts :Pytest session<CR>
+    let g:pymode = 1
+    " let g:pymode_rope = 1
+    " }}}
+    " syntastic settings {{{
+    set statusline+=%#warningmsg#
+    set statusline+=%{SyntasticStatuslineFlag()}
+    set statusline+=%*
+
+    let g:syntastic_always_populate_loc_list = 1
+    let g:syntastic_auto_loc_list = 1
+    let g:syntastic_check_on_open = 1
+    let g:syntastic_check_on_wq = 0
+    " let g:syntastic_python_checkers = ['flake8', 'pylint']
     " }}}
 endif
 " }}}
@@ -153,10 +171,12 @@ set ruler           " show the cursor position all the time
 set showcmd         " display incomplete commands
 set nowrap          " Whitespace
 set showmatch       " Set viewing matched braces, brackets and parens
+set nofoldenable    " Do not fold when opening files.
+set cursorline      " Show the current line
 " }}}
 " Spelling settings {{{
 set spelllang=en
-set spellfile=$HOME/Dropbox/apps/vim/spell/en.utf-8.add
+set spellfile=$HOME/OneDrive/apps/vim/spell/en.utf-8.add
 " }}}
 " Completion {{{
 set omnifunc=syntaxcomplete#Complete    " omni complete all
