@@ -9,9 +9,9 @@ install.log
 .vimrc.swp
 
 # ignore vim-colorscheme-manager files
-vim/.colorscheme
-vim/.gcolorscheme
+home/.vim/.colorscheme
+home/.vim/.gcolorscheme
 
 # ignore all files and dirs in the vim/bundle directory
 # except the README.md file.
-vim/bundle/**
+home/.vim/bundle/**

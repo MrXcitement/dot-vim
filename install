@@ -11,29 +11,43 @@
 # 2016.04.21 MRB
 # - Rewrite to be less generic
 
-# Create a symbolic link, backing up any files that exist
-link() {
+# 2019.04.22 MRB
+# - Backup and link files/dirs in home dir
+
+# Backup a file/directory by renaming it with the current date and time
+backup_file() {
+	file=$1
+	file_ext=$(date +%Y%m%d%H%M)
+
+	if [ -e "${file}" ]; then
+		if ! [ -h "${file}" ]; then
+			echo "Backing up ${file} to: ${file}.${file_ext}"
+			mv "${file}" "${file}.${file_ext}"
+		fi
+	fi
+}
+
+# create a symbolic link if one does not allready exist
+link_file() {
     local src=$1
     local dst=$2
-    if [ -a ${dst} ]; then
-        if ! [ -h ${dst} ]; then
-            echo "Backing up ${dst} to ${dst}.backup"
-            mv ${dst} ${dst}.backup
-        fi
-    fi
-    if ! [ -a ${dst} ]; then
+
+    if ! [ -e "${dst}" ]; then
         echo "Linking file ${dst}"
-        ln -sfnv ${src} ${dst}
+        ln -sfnv "${src}" "${dst}"
     fi
 }
 
-# Get the current working directory
-CWD="$(cd "$(dirname "$0")" && pwd)"
-pushd ${CWD} > /dev/null
-
-# Link the vim configuration files and dir
-link ${CWD}/vimrc ${HOME}/.vimrc
-link ${CWD}/vim ${HOME}/.vim
+# Backup existing files and link files/dirs in the home folder into
+# the users home directory.
+DIR="$(cd "$(dirname "$0")" && pwd)"
+shopt -s dotglob
+for src in "${DIR}"/home/*; do
+    dst="${HOME}"/$(basename "$src")
+    backup_file "$dst"
+    link_file "$src" "$dst"
+done
+shopt -u dotglob
 
 # Clone the Vundle plugin manager and install plugins
 if ! [ -a ~/.vim/bundle/Vundle.vim ]; then
@@ -41,4 +55,3 @@ if ! [ -a ~/.vim/bundle/Vundle.vim ]; then
     echo "Install the defined plugins..."
     vim +PluginInstall +qall
 fi
-popd > /dev/null
