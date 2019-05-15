@@ -176,7 +176,7 @@ set cursorline      " Show the current line
 " }}}
 " Spelling settings {{{
 set spelllang=en
-set spellfile=$HOME/OneDrive/apps/vim/spell/en.utf-8.add
+set spellfile=$HOME/SynologyDrive/AppData/vim/spell/en.utf-8.add
 " }}}
 " Completion {{{
 set omnifunc=syntaxcomplete#Complete    " omni complete all
