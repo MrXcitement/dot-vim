@@ -242,8 +242,15 @@ if has("gui_running")
     " }}}
 else
     " CUI Settings {{{
+    " Omni completion popup menu {{{
     highlight Pmenu ctermbg=blue ctermfg=white
     highlight PmenuSel ctermbg=darkblue ctermfg=white
+    " }}}
+    " Cursor Shapes for different modes {{{
+    let &t_SI = "\<Esc>[5 q"  "Insert Mode: Blinking vertical bar
+    let &t_SR = "\<Esc>[3 q"  "Replace Mode: Blinking underscore
+    let &t_EI = "\<Esc>[1 q"  "Normal Mode: Blinking block
+    " }}}
     " }}}
 endif
 syntax enable
