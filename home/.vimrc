@@ -66,7 +66,7 @@ else
     Plugin 'pearofducks/ansible-vim'
 
     " Completion plugins
-    Plugin 'SuperTab'
+    Plugin 'ervandew/supertab'
 
     " Git/Gist support
     if executable('git')
@@ -89,7 +89,7 @@ else
         " Plugin 'tmhedberg/simpylfold'
         " Plugin 'davidhalter/jedi-vim'
         " Plugin 'alfredodeza/pytest.vim'
-        Plugin 'klen/python-mode'
+        Plugin 'python-mode/python-mode'
     endif
 
     " Rust plugins
@@ -204,31 +204,35 @@ set expandtab
 " }}}
 " Autocomands {{{
 " Only do this part when compiled with support for autocommands.
-" if has("autocmd")
-" 
-"     " Put these in an autocmd group, so that we can delete them easily.
-"     augroup vimrcEx
-"     au!
-" 
-"     " For all text files set 'textwidth' to 78 characters.
-"     " autocmd FileType text setlocal textwidth=78
-"     
-"     " highlight lines that are longer than the textwidth
-"     autocmd BufEnter * highlight OverLength ctermbg=darkgrey guibg=#592929
-"     autocmd BufEnter * match OverLength /\%80v.*/
-"     
-"     augroup END     " end of vimrcEx augroup
-" endif " has("autocmd")
+if has("autocmd")
+
+    " Put these in an autocmd group, so that we can delete them easily.
+    augroup vimrcEx
+    au!
+
+    " For all text files set 'textwidth' to 78 characters.
+    " autocmd FileType text setlocal textwidth=78
+    
+    " highlight lines that are longer than the textwidth
+    " autocmd BufEnter * highlight OverLength ctermbg=darkgrey guibg=#592929
+    " autocmd BufEnter * match OverLength /\%80v.*/
+
+    " Fixup the Omnicompletion popup menu colors
+    autocmd ColorScheme * highlight Pmenu ctermbg=Grey ctermfg=Black guibg=Grey guifg=Black
+    autocmd ColorScheme * highlight PmenuSel ctermbg=DarkGrey ctermfg=Grey guibg=Black guifg=Grey
+    
+    augroup END     " end of vimrcEx augroup
+endif " has("autocmd")
 " }}}
 " UI Settings, fonts, colors, etc. {{{
+syntax enable
 if has("gui_running")
-    " GUI Settings {{{
     if has("gui_gtk")
         set guifont=DejaVu\ Sans\ Mono\ 10
     elseif has("gui_win32")
         set guifont=FiraCode-Regular:h10,Consolas:h10
     elseif has('gui_mac') || has('gui_macvim')
-        set guifont=Fura\ Code\ Regular\ Nerd\ Font\ Complete:h12,Monaco:h12
+        set guifont=FiraCodeNerdFontComplete-Regular:h12,Monaco:h12
         if &guifont ==? 'Nerd'
             set macligatures
         endif
@@ -241,21 +245,12 @@ if has("gui_running")
 
     "" Keep gui colorscheme seperate from cui/term colorscheme
     let g:colorscheme_manager_file = vim_path . '/.gcolorscheme'
-    " }}}
 else
-    " CUI Settings {{{
-    " Omni completion popup menu {{{
-    highlight Pmenu ctermbg=blue ctermfg=white
-    highlight PmenuSel ctermbg=darkblue ctermfg=white
-    " }}}
-    " Cursor Shapes for different modes {{{
+    " Cursor Shapes for different modes
     let &t_SI = "\<Esc>[5 q"  "Insert Mode: Blinking vertical bar
     let &t_SR = "\<Esc>[3 q"  "Replace Mode: Blinking underscore
     let &t_EI = "\<Esc>[1 q"  "Normal Mode: Blinking block
-    " }}}
-    " }}}
 endif
-syntax enable
 " }}}
 " Change <leader> from \ to , {{{
 let mapleader=","
