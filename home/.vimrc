@@ -163,16 +163,18 @@ endif
 " 'cindent' is on in C files, etc.
 " Also load indent files, to automatically do language-dependent indenting.
 filetype plugin indent on
-set nocompatible    " be iMproved, required by vundle
-set encoding=utf-8  " handle unicode files
 set backspace=indent,eol,start " allow backspacing over everything in insert mode
+if &ttytype != "win32"
+    set cursorline  " Highlight the current line, except in win console
+endif
+set encoding=utf-8  " handle unicode files
 set history=50      " keep 50 lines of command line history
+set nocompatible    " be iMproved, required by vundle
+set nofoldenable    " Do not fold when opening files.
+set nowrap          " Whitespace
 set ruler           " show the cursor position all the time
 set showcmd         " display incomplete commands
-set nowrap          " Whitespace
 set showmatch       " Set viewing matched braces, brackets and parens
-set nofoldenable    " Do not fold when opening files.
-set cursorline      " Show the current line
 " }}}
 " Spelling settings {{{
 set spelllang=en
