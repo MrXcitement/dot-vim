@@ -61,6 +61,9 @@ else
     Plugin 'xolox/vim-colorscheme-switcher'
     Plugin 'MrXcitement/vim-colorscheme-manager'
     
+    " Developer plugins...
+    Plugin 'ddollar/nerdcommenter'
+
     " DevOps plugins...
     Plugin 'hashivim/vim-vagrant'
     Plugin 'pearofducks/ansible-vim'
@@ -273,9 +276,6 @@ nnoremap <leader>n :set nonumber!<CR>:set foldcolumn=0<CR>
 " <leader>V reloads it -- making all changes active (have to save first)
 nnoremap <silent> <leader>v :e $MYVIMRC<CR>
 nnoremap <silent> <leader>V :source $MYVIMRC<CR>:filetype detect<CR>:exe ":echo 'reloaded' $MYVIMRC"<CR>
-" }}}
-" remap - <leader>c toggle cursorline and cursorcolum {{{
-nnoremap <Leader>c :set cursorline! cursorcolumn!<CR>
 " }}}
 " remap - window movement shortcuts {{{
 nnoremap <C-J> <C-W><C-J>
