@@ -84,12 +84,9 @@ else
 
     " Python plugins
     if executable('python') || executable('python3')
-        " Plugin 'hynek/vim-python-pep8-indent'
-        " Plugin 'nvie/vim-flake8'
-        " Plugin 'tmhedberg/simpylfold'
-        " Plugin 'davidhalter/jedi-vim'
-        " Plugin 'alfredodeza/pytest.vim'
-        Plugin 'python-mode/python-mode'
+        Plugin 'hynek/vim-python-pep8-indent'
+        Plugin 'tmhedberg/simpylfold'
+        Plugin 'nvie/vim-flake8'
     endif
 
     " Rust plugins
