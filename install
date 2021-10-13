@@ -50,8 +50,11 @@ done
 shopt -u dotglob
 
 # Clone the Vundle plugin manager and install plugins
-if ! [ -a ~/.vim/bundle/Vundle.vim ]; then
+if [ ! -d ~/.vim/bundle/Vundle.vim ]; then
+    echo "Clone the Vundle plugin manager"
     git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-    echo "Install the defined plugins..."
-    vim +PluginInstall +qall
+    if type vim &>/dev/null; then 
+        echo "Install the defined plugins..."
+        vim +PluginInstall +qall
+    fi
 fi
