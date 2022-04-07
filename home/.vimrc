@@ -57,6 +57,7 @@ else
 
     " UI plugins...
     Plugin 'vim-airline/vim-airline'
+    Plugin 'vim-airline/vim-airline-themes'
     Plugin 'xolox/vim-misc'
     Plugin 'xolox/vim-colorscheme-switcher'
     Plugin 'MrXcitement/vim-colorscheme-manager'
@@ -250,6 +251,11 @@ else
     let &t_SI = "\<Esc>[5 q"  "Insert Mode: Blinking vertical bar
     let &t_SR = "\<Esc>[3 q"  "Replace Mode: Blinking underscore
     let &t_EI = "\<Esc>[1 q"  "Normal Mode: Blinking block
+    " If the terminal supports 24 bit (256) colors, set the termguicolors to
+    " use in vim.
+    if has("termguicolors")
+        set termguicolors
+    endif
 endif
 " }}}
 " Change <leader> from \ to , {{{
