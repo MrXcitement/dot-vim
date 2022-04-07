@@ -253,7 +253,7 @@ else
     let &t_EI = "\<Esc>[1 q"  "Normal Mode: Blinking block
     " If the terminal supports 24 bit (256) colors, set the termguicolors to
     " use in vim.
-    if has("termguicolors")
+    if has("vcon")
         set termguicolors
     endif
 endif
