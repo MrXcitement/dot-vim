@@ -69,6 +69,9 @@ else
     Plugin 'hashivim/vim-vagrant'
     Plugin 'pearofducks/ansible-vim'
 
+    " Themes...
+    Plugin 'morhetz/gruvbox'
+
     " Completion plugins
     Plugin 'ervandew/supertab'
 
