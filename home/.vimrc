@@ -269,11 +269,10 @@ nnoremap <silent> <leader>s :set spell!<CR>
 " }}}
 " remap - <leader>l toggles viewing whitespace {{{
 " http://vimcasts.org/episodes/show-invisibles/
-" Use TextMate symbols for tabstop and EOLs
-" ctrl-v u25b8 for tab
-" ctrl-v u00ac for eol
+" Changed from TextMate symbols to standard ASCII so that the
+" whitespace characters are visible no mater what font is intalled.
+set listchars=tab:]-,trail:_,extends:>,precedes:<,nbsp:~,eol:$
 nnoremap <leader>l :set list!<CR>
-set listchars=tab:▸\ ,eol:¬
 " }}}
 " remap - <leader>n turn on/off line number {{{ 
 " http://dancingpenguinsoflight.com/2009/02/python-and-vim-make-your-own-ide/
