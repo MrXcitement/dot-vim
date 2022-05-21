@@ -234,7 +234,7 @@ if has("gui_running")
     if has("gui_gtk")
         set guifont=DejaVu\ Sans\ Mono\ 10
     elseif has("gui_win32")
-        set guifont=FiraCode-Regular:h10,Consolas:h10
+        set guifont=FiraCode_NF:h12:cANSI,Consolas:h10
     elseif has('gui_mac') || has('gui_macvim')
         set guifont=FiraCodeNerdFontComplete-Regular:h12,Monaco:h12
         if &guifont ==? 'Nerd'
