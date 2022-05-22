@@ -12,15 +12,15 @@ rem * First release.
 rem Check if the current command prompt is running elevated
 whoami /groups | find "12288" >NUL
 if %errorlevel% NEQ 0 (
-	echo You must run the install from an elevated command prompt.
-	exit /B
+    echo You must run the install from an elevated command prompt.
+    exit /B
 )
 
 rem Check if %HOME% is defined, set it to %USERPROFILE% if not
 if "%HOME%"=="" (
-	echo Setting the home directory
-	SETX HOME %USERPROFILE%
-	SET HOME=%USERPROFILE%
+    echo Setting the home directory
+    SETX HOME %USERPROFILE%
+    SET HOME=%USERPROFILE%
 )
 
 rem Link the vimrc file and vim directory from the current directory

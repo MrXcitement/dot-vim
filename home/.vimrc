@@ -61,7 +61,7 @@ else
     Plugin 'xolox/vim-misc'
     Plugin 'xolox/vim-colorscheme-switcher'
     Plugin 'MrXcitement/vim-colorscheme-manager'
-    
+
     " Developer plugins...
     Plugin 'ddollar/nerdcommenter'
 
@@ -189,7 +189,7 @@ set omnifunc=syntaxcomplete#Complete    " omni complete all
 set completeopt=menuone,longest,preview
 " }}}
 " Show line numbers {{{
-" - relative numbers with current line number 
+" - relative numbers with current line number
 set number          " display line numbers
 set relativenumber  " display relative number from current line
 " }}}
@@ -216,7 +216,7 @@ if has("autocmd")
 
     " For all text files set 'textwidth' to 78 characters.
     " autocmd FileType text setlocal textwidth=78
-    
+
     " highlight lines that are longer than the textwidth
     " autocmd BufEnter * highlight OverLength ctermbg=darkgrey guibg=#592929
     " autocmd BufEnter * match OverLength /\%80v.*/
@@ -224,7 +224,7 @@ if has("autocmd")
     " Fixup the Omnicompletion popup menu colors
     autocmd ColorScheme * highlight Pmenu ctermbg=Grey ctermfg=Black guibg=Grey guifg=Black
     autocmd ColorScheme * highlight PmenuSel ctermbg=DarkGrey ctermfg=Grey guibg=Black guifg=Grey
-    
+
     augroup END     " end of vimrcEx augroup
 endif " has("autocmd")
 " }}}
@@ -274,7 +274,7 @@ nnoremap <silent> <leader>s :set spell!<CR>
 set listchars=tab:]-,trail:_,extends:>,precedes:<,nbsp:~,eol:$
 nnoremap <leader>l :set list!<CR>
 " }}}
-" remap - <leader>n turn on/off line number {{{ 
+" remap - <leader>n turn on/off line number {{{
 " http://dancingpenguinsoflight.com/2009/02/python-and-vim-make-your-own-ide/
 nnoremap <leader>n :set nonumber!<CR>:set foldcolumn=0<CR>
 " }}}
