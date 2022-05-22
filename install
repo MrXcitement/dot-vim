@@ -16,26 +16,26 @@
 
 # Backup a file/directory by renaming it with the current date and time
 backup_file() {
-	file=$1
-	file_ext=$(date +%Y%m%d%H%M)
+  file=$1
+  file_ext=$(date +%Y%m%d%H%M)
 
-	if [ -e "${file}" ]; then
-		if ! [ -h "${file}" ]; then
-			echo "Backing up ${file} to: ${file}.${file_ext}"
-			mv "${file}" "${file}.${file_ext}"
-		fi
-	fi
+  if [ -e "${file}" ]; then
+    if ! [ -h "${file}" ]; then
+      echo "Backing up ${file} to: ${file}.${file_ext}"
+      mv "${file}" "${file}.${file_ext}"
+    fi
+  fi
 }
 
 # create a symbolic link if one does not allready exist
 link_file() {
-    local src=$1
-    local dst=$2
+  local src=$1
+  local dst=$2
 
-    if ! [ -e "${dst}" ]; then
-        echo "Linking file ${dst}"
-        ln -sfnv "${src}" "${dst}"
-    fi
+  if ! [ -e "${dst}" ]; then
+    echo "Linking file ${dst}"
+    ln -sfnv "${src}" "${dst}"
+  fi
 }
 
 # Backup existing files and link files/dirs in the home folder into
@@ -43,18 +43,18 @@ link_file() {
 DIR="$(cd "$(dirname "$0")" && pwd)"
 shopt -s dotglob
 for src in "${DIR}"/home/*; do
-    dst="${HOME}"/$(basename "$src")
-    backup_file "$dst"
-    link_file "$src" "$dst"
+  dst="${HOME}"/$(basename "$src")
+  backup_file "$dst"
+  link_file "$src" "$dst"
 done
 shopt -u dotglob
 
 # Clone the Vundle plugin manager and install plugins
 if [ ! -d ~/.vim/bundle/Vundle.vim ]; then
-    echo "Clone the Vundle plugin manager"
-    git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-    if type vim &>/dev/null; then 
-        echo "Install the defined plugins..."
-        vim +PluginInstall +qall
-    fi
+  echo "Clone the Vundle plugin manager"
+  git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+  if type vim &>/dev/null; then
+    echo "Install the defined plugins..."
+    vim +PluginInstall +qall
+  fi
 fi
