@@ -1,0 +1,7 @@
+# all 'checked in' files will be stored with ls as their eol
+* text=auto
+
+install text eol=lf
+*.vim   text eol=lf
+*.vimrc text eol=lf
+*.cmd text eol=crlf
