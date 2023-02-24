@@ -19,106 +19,35 @@ function! GetRunningOS()
         return '?'
     endif
 endfunction
+
 function! IsWin()
     return GetRunningOS() =~ 'win'
 endfunction
+
 function! IsMac()
     return GetRunningOS() =~ 'mac'
 endfunction
+
 function! IsUnix()
     return GetRunningOS() =~ 'unix'
 endfunction
-" }}}
-" Vundle - the vim plugin bundler {{{
-filetype on     " do this to keep turning filetype off from crashing apple's vim
-filetype off    " required by Vundle
 
 let vim_path = IsWin() ? expand("$HOME/vimfiles") : expand("$HOME/.vim")
-let vundle_path = vim_path . "/bundle/Vundle.vim"
+" }}}
 
-" Check if Vundle is missing
-if !isdirectory(vundle_path)
-    echoerr 'Vundle is not installed! Use the install script, or clone it.'
-    echoerr '$ git clone https://github.com/VundleVim/Vundle.vim ' . vundle_path
+" vim-plug -- Minimalist Vim Plugin Manager {{{
+if !empty(glob(vim_path . '/autoload/plug.vim'))
 
-else
-    " Only initialize the Vundle stuff if it is installed
-
-    exe "set rtp+=" . vundle_path
-    call vundle#begin()
-
-    " let Vundle manage Vundle, required!
-    Plugin 'VundleVim/Vundle.vim'
+    call plug#begin()
 
     " General plugins...
-    Plugin 'tpope/vim-surround'
-    Plugin 'farmergreg/vim-lastplace'
-    Plugin 'editorconfig/editorconfig-vim'
+    Plug 'tpope/vim-surround'
+    Plug 'farmergreg/vim-lastplace'
+    Plug 'editorconfig/editorconfig-vim'
 
     " UI plugins...
-    Plugin 'vim-airline/vim-airline'
-    Plugin 'vim-airline/vim-airline-themes'
-    Plugin 'xolox/vim-misc'
-    Plugin 'xolox/vim-colorscheme-switcher'
-    Plugin 'MrXcitement/vim-colorscheme-manager'
-
-    " Developer plugins...
-    Plugin 'ddollar/nerdcommenter'
-
-    " DevOps plugins...
-    Plugin 'hashivim/vim-vagrant'
-    Plugin 'pearofducks/ansible-vim'
-
-    " Themes...
-    Plugin 'morhetz/gruvbox'
-
-    " Completion plugins
-    Plugin 'ervandew/supertab'
-
-    " Git/Gist support
-    if executable('git')
-        Plugin 'airblade/vim-gitgutter'
-        Plugin 'tpope/vim-fugitive'
-    endif
-    Plugin 'mattn/webapi-vim'
-    Plugin 'mattn/gist-vim'
-
-    " Markdown support
-    Plugin 'nelstrom/vim-markdown-folding'
-
-    " Powershell support
-    Plugin 'PProvost/vim-ps1'
-
-    " Python plugins
-    if executable('python') || executable('python3')
-        Plugin 'hynek/vim-python-pep8-indent'
-        Plugin 'tmhedberg/simpylfold'
-        Plugin 'nvie/vim-flake8'
-    endif
-
-    " Rust plugins
-    if executable('rustc')
-        Plugin 'rust-lang/rust.vim'
-        Plugin 'racer-rust/vim-racer'
-    endif
-
-    " Ruby plugins
-    if executable('ruby')
-        Plugin 'vim-ruby/vim-ruby'
-    endif
-
-    " Syntax plugins
-    Plugin 'scrooloose/syntastic'
-
-    " Swift plugins
-    if executable('swift')
-      Plugin 'keith/swift.vim'
-    endif
-
-    " end plugns here
-    call vundle#end()
-
-    " vim-airline settings {{{
+    Plug 'vim-airline/vim-airline'
+    Plug 'vim-airline/vim-airline-themes'
     set laststatus=2
     " Enable the list of buffers
     let g:airline#extensions#tabline#enabled = 1
@@ -126,42 +55,91 @@ else
     let g:airline#extensions#tabline#fnamemod = ':t'
     " Show powerline seperators
     let g:airline_powerline_fonts = 1
-    " }}}
-    " vim-colorscheme-manager settings {{{
+    Plug 'xolox/vim-misc'
+    Plug 'xolox/vim-colorscheme-switcher'
+    Plug 'MrXcitement/vim-colorscheme-manager'
     if !exists('g:colorscheme_switcher_exclude')
         let g:colorscheme_switcher_exclude = []
     endif
-    " }}}
-    " vim-gitgutter settings {{{
-    if IsWin()
-        let g:gitgutter_grep = ''
-        let g:gitgutter_async = 0
+    Plug 'morhetz/gruvbox'
+
+    " Developer plugins...
+    Plug 'ddollar/nerdcommenter'
+
+    " DevOps plugins...
+    " Plug 'hashivim/vim-vagrant'
+    " Plug 'pearofducks/ansible-vim'
+
+    " Completion plugins
+    Plug 'ervandew/supertab'
+
+    " Git/Gist support
+    if executable('git')
+        Plug 'airblade/vim-gitgutter'
+        if IsWin()
+            let g:gitgutter_grep = ''
+            let g:gitgutter_async = 0
+        endif
+        Plug 'tpope/vim-fugitive'
     endif
-    " }}}
-    " python settings {{{
-    " let g:flake8_show_in_gutter=1
-    " autocmd FileType python nnoremap <buffer> <leader>f  :call Flake8()<CR>
-    " autocmd FileType python nnoremap <buffer> <leader>tf :Pytest file<CR>
-    " autocmd FileType python nnoremap <buffer> <leader>tc :Pytest class<CR>
-    " autocmd FileType python nnoremap <buffer> <leader>tm :Pytest method<CR>
-    " autocmd FileType python nnoremap <buffer> <leader>td :Pytest function<CR>
-    " autocmd FileType python nnoremap <buffer> <leader>ts :Pytest session<CR>
-    let g:pymode = 1
-    " let g:pymode_rope = 1
-    " }}}
-    " syntastic settings {{{
+    Plug 'mattn/webapi-vim'
+    Plug 'mattn/gist-vim'
+
+    " Markdown support
+    Plug 'nelstrom/vim-markdown-folding'
+
+    " Powershell support
+    Plug 'PProvost/vim-ps1'
+
+    " Python plugins
+    if executable('python') || executable('python3')
+        if executable('flake8')
+            Plug 'nvie/vim-flake8'
+        endif
+        Plug 'tmhedberg/simpylfold'
+    endif
+
+    " Rust plugins
+    if executable('rustc')
+        Plug 'rust-lang/rust.vim'
+        Plug 'racer-rust/vim-racer'
+    endif
+
+    " Ruby plugins
+    if executable('ruby')
+        Plug 'vim-ruby/vim-ruby'
+    endif
+
+    " Swift plugins
+    if executable('swift')
+        Plug 'keith/swift.vim'
+    endif
+
+    " Syntax plugins
+    Plug 'scrooloose/syntastic'
     set statusline+=%#warningmsg#
     set statusline+=%{SyntasticStatuslineFlag()}
     set statusline+=%*
-
     let g:syntastic_always_populate_loc_list = 1
     let g:syntastic_auto_loc_list = 1
     let g:syntastic_check_on_open = 1
     let g:syntastic_check_on_wq = 0
     " let g:syntastic_python_checkers = ['flake8', 'pylint']
-    " }}}
+
+    " Initialize plugin system
+    call plug#end()
+    " NOTE: Automatically executes `filetype plugin indent on` and `syntax enable`.
+    " You can revert the settings after the call like so:
+    "   filetype indent off   " Disable file-type-specific indentation
+    "   syntax off            " Disable syntax highlighting
+
+    " Run PlugInstall if there are missing plugins
+    autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+    \| PlugInstall --sync | source $MYVIMRC
+    \| endif
 endif
 " }}}
+
 " Editor settings {{{
 " Use the default filetype settings, so that mail gets 'tw' set to 72,
 " 'cindent' is on in C files, etc.

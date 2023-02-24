@@ -4,15 +4,21 @@
 # Mike Barker <mike@thebarkers.com>
 # May 14th, 2013
 
-# 2015.04.30 MRB
-# Renamed from makelinks.sh to install.sh
-# Force create the sympolic links
+# 2023.02.24 MRB
+# Change from Vundle to vim-plug
+# Vundle was removed from GitHub this month, possibly due to malware?
+# https://www.reddit.com/r/vim/comments/11890p5/the_vundle_github_repo_seems_to_have_disappeared/
+# https://www.reddit.com/r/vim/comments/zzcn10/vimorg_autosave_vundle_plugin_windows_installer/
+
+# 2019.04.22 MRB
+# - Backup and link files/dirs in home dir
 
 # 2016.04.21 MRB
 # - Rewrite to be less generic
 
-# 2019.04.22 MRB
-# - Backup and link files/dirs in home dir
+# 2015.04.30 MRB
+# Renamed from makelinks.sh to install.sh
+# Force create the sympolic links
 
 # Backup a file/directory by renaming it with the current date and time
 backup_file() {
@@ -49,12 +55,18 @@ for src in "${DIR}"/home/*; do
 done
 shopt -u dotglob
 
-# Clone the Vundle plugin manager and install plugins
-if [ ! -d ~/.vim/bundle/Vundle.vim ]; then
-  echo "Clone the Vundle plugin manager"
-  git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-  if type vim &>/dev/null; then
-    echo "Install the defined plugins..."
-    vim +PluginInstall +qall
-  fi
+# Install vim-plug
+VIM_PLUG_PATH="$HOME/.vim/autoload/plug.vim"
+if [ ! -x "$VIM_PLUG_PATH" ]; then
+  echo "Install Minimalist Vim Plugin Manager vim-plug"
+  curl -fLo "$VIM_PLUG_PATH" --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
+unset VIM_PLUG_PATH
+
+# Remove the Vundle plugin manager and installed plugins
+VUNDLE_PATH="$HOME/.vim/bundle"
+if [ -d "$VUNDLE_PATH/Vundle.vim" ]; then
+  echo "Remove Vundle plugin manager and installed plugins"
+  rm -rf "$VUNDLE_PATH"
+fi
+unset VUNDLE_PATH
