@@ -49,31 +49,22 @@ if !empty(glob(vim_path . '/autoload/plug.vim'))
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
     set laststatus=2
-    " Enable the list of buffers
+    " " Enable the list of buffers
     let g:airline#extensions#tabline#enabled = 1
-    " Show just the filename
+    " " Show just the filename
     let g:airline#extensions#tabline#fnamemod = ':t'
-    " Show powerline seperators
+    " " Show powerline seperators
     let g:airline_powerline_fonts = 1
-    Plug 'xolox/vim-misc'
-    Plug 'xolox/vim-colorscheme-switcher'
-    Plug 'MrXcitement/vim-colorscheme-manager'
-    if !exists('g:colorscheme_switcher_exclude')
-        let g:colorscheme_switcher_exclude = []
-    endif
-    Plug 'morhetz/gruvbox'
+    " Plug 'xolox/vim-misc'
+    " Plug 'xolox/vim-colorscheme-switcher'
+    " Plug 'MrXcitement/vim-colorscheme-manager'
+    " if !exists('g:colorscheme_switcher_exclude')
+    "     let g:colorscheme_switcher_exclude = []
+    " endif
 
     " Developer plugins...
-    Plug 'ddollar/nerdcommenter'
-
-    " DevOps plugins...
-    " Plug 'hashivim/vim-vagrant'
-    " Plug 'pearofducks/ansible-vim'
-
-    " Completion plugins
+    Plug 'tpope/vim-commentary'
     Plug 'ervandew/supertab'
-
-    " Git/Gist support
     if executable('git')
         Plug 'airblade/vim-gitgutter'
         if IsWin()
@@ -85,11 +76,17 @@ if !empty(glob(vim_path . '/autoload/plug.vim'))
     Plug 'mattn/webapi-vim'
     Plug 'mattn/gist-vim'
 
+    " DevOps plugins...
+    Plug 'hashivim/vim-vagrant'
+    Plug 'pearofducks/ansible-vim'
+
     " Markdown support
     Plug 'nelstrom/vim-markdown-folding'
 
     " Powershell support
-    Plug 'PProvost/vim-ps1'
+    if executable('pwsh') || executable('powershell')
+        Plug 'PProvost/vim-ps1'
+    endif
 
     " Python plugins
     if executable('python') || executable('python3')
@@ -116,7 +113,7 @@ if !empty(glob(vim_path . '/autoload/plug.vim'))
     endif
 
     " Syntax plugins
-    Plug 'scrooloose/syntastic'
+    Plug 'vim-syntastic/syntastiC'
     set statusline+=%#warningmsg#
     set statusline+=%{SyntasticStatuslineFlag()}
     set statusline+=%*
@@ -124,7 +121,7 @@ if !empty(glob(vim_path . '/autoload/plug.vim'))
     let g:syntastic_auto_loc_list = 1
     let g:syntastic_check_on_open = 1
     let g:syntastic_check_on_wq = 0
-    " let g:syntastic_python_checkers = ['flake8', 'pylint']
+    let g:syntastic_python_checkers = ['flake8', 'pylint']
 
     " Initialize plugin system
     call plug#end()
@@ -228,10 +225,17 @@ if has("gui_running")
     "" Keep gui colorscheme seperate from cui/term colorscheme
     let g:colorscheme_manager_file = vim_path . '/.gcolorscheme'
 else
-    " Cursor Shapes for different modes
-    let &t_SI = "\<Esc>[5 q"  "Insert Mode: Blinking vertical bar
-    let &t_SR = "\<Esc>[3 q"  "Replace Mode: Blinking underscore
-    let &t_EI = "\<Esc>[1 q"  "Normal Mode: Blinking block
+    " Change cursor shape between insert and normal mode in iTerm2.app
+    if $TERM_PROGRAM =~ "iTerm"
+        let &t_SI = "\<Esc>]50;CursorShape=1\x7" " Vertical bar in insert mode
+        let &t_SR = "\<Esc>]50;CursorShape=2\x7"
+        let &t_EI = "\<Esc>]50;CursorShape=0\x7" " Block in normal mode
+    else
+        " Cursor Shapes for different modes
+        let &t_SI = "\<Esc>[5 q"  "Insert Mode: Blinking vertical bar
+        let &t_SR = "\<Esc>[3 q"  "Replace Mode: Blinking underscore
+        let &t_EI = "\<Esc>[1 q"  "Normal Mode: Blinking block
+    endif
     " If the terminal supports 24 bit (256) colors, set the termguicolors to
     " use in vim.
     if has("vcon")
