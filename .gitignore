@@ -12,6 +12,5 @@ install.log
 home/.vim/.colorscheme
 home/.vim/.gcolorscheme
 
-# ignore all files and dirs in the vim/bundle directory
-# except the README.md file.
-home/.vim/bundle/**
+# ignore all files and dirs in the vim/plugged directory
+home/.vim/plugged/**
