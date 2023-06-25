@@ -55,12 +55,12 @@ if !empty(glob(vim_path . '/autoload/plug.vim'))
     let g:airline#extensions#tabline#fnamemod = ':t'
     " " Show powerline seperators
     let g:airline_powerline_fonts = 1
-    " Plug 'xolox/vim-misc'
-    " Plug 'xolox/vim-colorscheme-switcher'
-    " Plug 'MrXcitement/vim-colorscheme-manager'
-    " if !exists('g:colorscheme_switcher_exclude')
-    "     let g:colorscheme_switcher_exclude = []
-    " endif
+    Plug 'xolox/vim-misc'
+    Plug 'xolox/vim-colorscheme-switcher'
+    Plug 'MrXcitement/vim-colorscheme-manager'
+    if !exists('g:colorscheme_switcher_exclude')
+        let g:colorscheme_switcher_exclude = []
+    endif
 
     " Developer plugins...
     Plug 'tpope/vim-commentary'
