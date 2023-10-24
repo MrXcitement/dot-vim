@@ -46,6 +46,7 @@ if !empty(glob(vim_path . '/autoload/plug.vim'))
     Plug 'editorconfig/editorconfig-vim'
 
     " UI plugins...
+    Plug 'sonph/onehalf', { 'rtp': 'vim' }
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
     set laststatus=2
