@@ -36,7 +36,15 @@ let vim_path = IsWin() ? expand("$HOME/vimfiles") : expand("$HOME/.vim")
 " }}}
 
 " vim-plug -- Minimalist Vim Plugin Manager {{{
-if !empty(glob(vim_path . '/autoload/plug.vim'))
+" Install vim-plug if not found
+let vim_plug_path = vim_path . '/autoload/plug.vim'
+if empty(glob(vim_plug_path))
+  silent exec "!curl --create-dirs -fLo " . vim_plug_path .
+    \ " https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+endif
+
+" Add plugins
+if !empty(glob(vim_plug_path))
 
     call plug#begin()
 
@@ -50,11 +58,11 @@ if !empty(glob(vim_path . '/autoload/plug.vim'))
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
     set laststatus=2
-    " " Enable the list of buffers
+    " Enable the list of buffers
     let g:airline#extensions#tabline#enabled = 1
-    " " Show just the filename
+    " Show just the filename
     let g:airline#extensions#tabline#fnamemod = ':t'
-    " " Show powerline seperators
+    " Show powerline seperators
     let g:airline_powerline_fonts = 1
     Plug 'xolox/vim-misc'
     Plug 'xolox/vim-colorscheme-switcher'
@@ -76,13 +84,15 @@ if !empty(glob(vim_path . '/autoload/plug.vim'))
     endif
     Plug 'mattn/webapi-vim'
     Plug 'mattn/gist-vim'
+    Plug 'nelstrom/vim-markdown-folding'
 
     " DevOps plugins...
-    Plug 'hashivim/vim-vagrant'
-    Plug 'pearofducks/ansible-vim'
-
-    " Markdown support
-    Plug 'nelstrom/vim-markdown-folding'
+    if executable('vagrant')
+        Plug 'hashivim/vim-vagrant'
+    endif
+    if executable('ansible')
+        Plug 'pearofducks/ansible-vim'
+    endif
 
     " Powershell support
     if executable('pwsh') || executable('powershell')
@@ -113,28 +123,14 @@ if !empty(glob(vim_path . '/autoload/plug.vim'))
         Plug 'keith/swift.vim'
     endif
 
-    " Syntax plugins
-    Plug 'vim-syntastic/syntastiC'
-    set statusline+=%#warningmsg#
-    set statusline+=%{SyntasticStatuslineFlag()}
-    set statusline+=%*
-    let g:syntastic_always_populate_loc_list = 1
-    let g:syntastic_auto_loc_list = 1
-    let g:syntastic_check_on_open = 1
-    let g:syntastic_check_on_wq = 0
-    let g:syntastic_python_checkers = ['flake8', 'pylint']
-
     " Initialize plugin system
     call plug#end()
-    " NOTE: Automatically executes `filetype plugin indent on` and `syntax enable`.
+    " NOTE: Automatically executes:
+    " `filetype plugin indent on` and `syntax enable`.  
     " You can revert the settings after the call like so:
     "   filetype indent off   " Disable file-type-specific indentation
     "   syntax off            " Disable syntax highlighting
 
-    " Run PlugInstall if there are missing plugins
-    autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
-    \| PlugInstall --sync | source $MYVIMRC
-    \| endif
 endif
 " }}}
 
@@ -144,10 +140,11 @@ endif
 " Also load indent files, to automatically do language-dependent indenting.
 filetype plugin indent on
 set backspace=indent,eol,start " allow backspacing over everything in insert mode
+set colorcolumn=80
 if &ttytype != "win32"
     set cursorline  " Highlight the current line, except in win console
 endif
-set encoding=utf-8  " handle unicode files
+set encoding=utf-8  " handle Unicode files
 set history=50      " keep 50 lines of command line history
 set nocompatible    " be iMproved, required by vundle
 set nofoldenable    " Do not fold when opening files.
@@ -158,7 +155,7 @@ set showmatch       " Set viewing matched braces, brackets and parens
 " }}}
 " Spelling settings {{{
 set spelllang=en
-set spellfile=$HOME/SynologyDrive/AppData/vim/spell/en.utf-8.add
+set spellfile="/Users/mike/.vim/spell/en.utf-8.add"
 " }}}
 " Completion {{{
 set omnifunc=syntaxcomplete#Complete    " omni complete all
@@ -188,20 +185,24 @@ if has("autocmd")
 
     " Put these in an autocmd group, so that we can delete them easily.
     augroup vimrcEx
-    au!
-
-    " For all text files set 'textwidth' to 78 characters.
-    " autocmd FileType text setlocal textwidth=78
-
-    " highlight lines that are longer than the textwidth
-    " autocmd BufEnter * highlight OverLength ctermbg=darkgrey guibg=#592929
-    " autocmd BufEnter * match OverLength /\%80v.*/
-
+        autocmd!
+        " For all text files set 'textwidth' to 80 characters.
+        autocmd FileType text setlocal textwidth=80
+    augroup end     " end of vimrcEx augroup
+   
+    " Run PlugInstall if there are missing plugins
+    augroup vimPlugMissing
+        autocmd!
+        autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+        \|    PlugInstall --sync | source $MYVIMRC
+        \| endif
+    augroup end
     " Fixup the Omnicompletion popup menu colors
-    autocmd ColorScheme * highlight Pmenu ctermbg=Grey ctermfg=Black guibg=Grey guifg=Black
-    autocmd ColorScheme * highlight PmenuSel ctermbg=DarkGrey ctermfg=Grey guibg=Black guifg=Grey
-
-    augroup END     " end of vimrcEx augroup
+    augroup customOmnicompletionPopup
+        autocmd!
+        autocmd ColorScheme * highlight Pmenu ctermbg=Grey ctermfg=Black guibg=Grey guifg=Black
+        autocmd ColorScheme * highlight PmenuSel ctermbg=DarkGrey ctermfg=Grey guibg=Black guifg=Grey
+    augroup end " end customOmnicompletionPopup
 endif " has("autocmd")
 " }}}
 " UI Settings, fonts, colors, etc. {{{
@@ -212,7 +213,7 @@ if has("gui_running")
     elseif has("gui_win32")
         set guifont=FiraCode_NF:h12:cANSI,Consolas:h10
     elseif has('gui_mac') || has('gui_macvim')
-        set guifont=FiraCodeNerdFontComplete-Regular:h12,Monaco:h12
+        set guifont=FiraCodeNFM-Light:h12,Monaco:h12
         if &guifont ==? 'Nerd'
             set macligatures
         endif
@@ -244,8 +245,8 @@ else
     endif
 endif
 " }}}
-" Change <leader> from \ to , {{{
-let mapleader=","
+" Change <leader> from \ to <space> {{{
+let mapleader=" "
 " }}}
 " remap - <leader>s toggle spell checking on and off {{{
 nnoremap <silent> <leader>s :set spell!<CR>
