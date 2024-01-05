@@ -70,7 +70,10 @@ if !empty(glob(vim_plug_path))
     if !exists('g:colorscheme_switcher_exclude')
         let g:colorscheme_switcher_exclude = []
     endif
-
+    if has("gui_running")
+        " Keep gui colorscheme seperate from cui/term colorscheme
+        let g:colorscheme_manager_file = vim_path . '/.gcolorscheme'
+    endif
     " Developer plugins...
     Plug 'tpope/vim-commentary'
     Plug 'ervandew/supertab'
@@ -210,13 +213,19 @@ syntax enable
 if has("gui_running")
     if has("gui_gtk")
         set guifont=DejaVu\ Sans\ Mono\ 10
+
     elseif has("gui_win32")
-        set guifont=FiraCode_NF:h12:cANSI,Consolas:h10
+        set guifont=FiraCode_Nerd_Font_Mono_Light:h12,Consolas:h12
+        if &guifont =~? 'Nerd'
+            set renderoptions=type:directx
+        endif
+
     elseif has('gui_mac') || has('gui_macvim')
         set guifont=FiraCodeNFM-Light:h12,Monaco:h12
-        if &guifont ==? 'Nerd'
+        if &guifont =~? 'NFM'
             set macligatures
         endif
+
     elseif has("x11")
         set guifont=-*-courier-medium-r-normal-*-*-180-*-*-m-*-*
     endif
@@ -224,8 +233,6 @@ if has("gui_running")
     "" Disable the toolbar in gui windows...
     set guioptions-=T
 
-    "" Keep gui colorscheme seperate from cui/term colorscheme
-    let g:colorscheme_manager_file = vim_path . '/.gcolorscheme'
 else
     " Change cursor shape between insert and normal mode in iTerm2.app
     if $TERM_PROGRAM =~ "iTerm"
