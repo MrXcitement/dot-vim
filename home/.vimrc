@@ -212,7 +212,10 @@ endif " has("autocmd")
 syntax enable
 if has("gui_running")
     if has("gui_gtk")
-        set guifont=DejaVu\ Sans\ Mono\ 10
+        set guifont=FiraCode\ Nerd\ Font\ Light\ 10
+        if &guifont =~? "Nerd"
+            set guiligatures=!\"#$%&()*+-./:<=>?@[]^_{\|~
+        endif
 
     elseif has("gui_win32")
         set guifont=FiraCode_Nerd_Font_Mono_Light:h12,Consolas:h12
