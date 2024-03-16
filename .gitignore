@@ -14,3 +14,9 @@ home/.vim/.gcolorscheme
 
 # ignore all files and dirs in the vim/plugged directory
 home/.vim/plugged/**
+
+# ignore spelling files
+home/.vim/spell
+
+# ignore vim-plug plugin
+home/.vim/autoload/plug.vim
