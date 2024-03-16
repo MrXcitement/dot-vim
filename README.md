@@ -1,5 +1,8 @@
 # Personal Vim setup
 
+## Archived on 3/16/2024
+I have migrated this configuration into my chezmoi [dotfiles](https://github.com/mrxcitement/dotfiles) repository.
+
 This is my personal vim configuration.
 
 I am currently using Vundle to manage plugins, the Vundle project is located here:
